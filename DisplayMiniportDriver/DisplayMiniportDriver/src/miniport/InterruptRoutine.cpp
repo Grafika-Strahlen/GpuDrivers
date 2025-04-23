@@ -5,7 +5,7 @@
 
 #pragma code_seg("_KTEXT")
 
-BOOLEAN HyInterruptRoutine(IN_CONST_PVOID MiniportDeviceContext, IN_ULONG MessageNumber)
+BOOLEAN GsInterruptRoutine(IN_CONST_PVOID MiniportDeviceContext, IN_ULONG MessageNumber)
 {
     (void) MiniportDeviceContext;
     (void) MessageNumber;

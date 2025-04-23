@@ -5,7 +5,7 @@
 
 #pragma code_seg("PAGE")
 
-NTSTATUS HyQueryDeviceDescriptor(IN_CONST_PVOID MiniportDeviceContext, IN_ULONG ChildUid, INOUT_PDXGK_DEVICE_DESCRIPTOR DeviceDescriptor)
+NTSTATUS GsQueryDeviceDescriptor(IN_CONST_PVOID MiniportDeviceContext, IN_ULONG ChildUid, INOUT_PDXGK_DEVICE_DESCRIPTOR DeviceDescriptor)
 {
     (void) MiniportDeviceContext;
     (void) ChildUid;

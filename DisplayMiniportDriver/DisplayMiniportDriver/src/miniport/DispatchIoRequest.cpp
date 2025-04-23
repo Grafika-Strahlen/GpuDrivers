@@ -2,7 +2,7 @@
 #include "Common.h"
 #include "miniport/DispatchIoRequest.hpp"
 
-NTSTATUS HyDispatchIoRequest(IN_CONST_PVOID MiniportDeviceContext, IN_ULONG VidPnSourceId, IN_PVIDEO_REQUEST_PACKET VideoRequestPacket)
+NTSTATUS GsDispatchIoRequest(IN_CONST_PVOID MiniportDeviceContext, IN_ULONG VidPnSourceId, IN_PVIDEO_REQUEST_PACKET VideoRequestPacket)
 {
     (void) MiniportDeviceContext;
     (void) VidPnSourceId;

@@ -5,7 +5,7 @@
 
 #pragma code_seg("PAGE")
 
-NTSTATUS HyRecommendFunctionalVidPn(IN_CONST_HANDLE hAdapter, IN_CONST_PDXGKARG_RECOMMENDFUNCTIONALVIDPN_CONST pRecommendFunctionalVidPn)
+NTSTATUS GsRecommendFunctionalVidPn(IN_CONST_HANDLE hAdapter, IN_CONST_PDXGKARG_RECOMMENDFUNCTIONALVIDPN_CONST pRecommendFunctionalVidPn)
 {
     PAGED_CODE();
     CHECK_IRQL(PASSIVE_LEVEL);

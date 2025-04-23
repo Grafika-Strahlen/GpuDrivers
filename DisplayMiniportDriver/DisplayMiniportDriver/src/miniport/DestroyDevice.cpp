@@ -5,7 +5,7 @@
 
 #pragma code_seg("PAGE")
 
-NTSTATUS HyDestroyDevice(IN_CONST_HANDLE hDevice)
+NTSTATUS GsDestroyDevice(IN_CONST_HANDLE hDevice)
 {
     PAGED_CODE();
     CHECK_IRQL(PASSIVE_LEVEL);

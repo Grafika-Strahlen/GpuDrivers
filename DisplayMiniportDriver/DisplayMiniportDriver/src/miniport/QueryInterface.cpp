@@ -77,7 +77,7 @@ static BOOL GuidEqual(const GUID* const a, const GUID* const b)
     return RtlCompareMemory(a, b, sizeof(GUID)) == sizeof(GUID);
 }
 
-NTSTATUS HyQueryInterface(IN_CONST_PVOID MiniportDeviceContext, IN_PQUERY_INTERFACE QueryInterface)
+NTSTATUS GsQueryInterface(IN_CONST_PVOID MiniportDeviceContext, IN_PQUERY_INTERFACE QueryInterface)
 {
     (void) MiniportDeviceContext;
     (void) QueryInterface;

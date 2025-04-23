@@ -2,4 +2,7 @@
 
 #include "Common.h"
 
-BOOLEAN HyInterruptRoutine(IN_CONST_PVOID MiniportDeviceContext, IN_ULONG MessageNumber);
+BOOLEAN GsInterruptRoutine(
+    IN_CONST_PVOID MiniportDeviceContext, 
+    IN_ULONG MessageNumber
+);

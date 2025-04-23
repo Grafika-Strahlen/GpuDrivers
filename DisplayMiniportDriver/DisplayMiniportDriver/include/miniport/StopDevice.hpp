@@ -2,4 +2,6 @@
 
 #include "Common.h"
 
-NTSTATUS HyStopDevice(IN_CONST_PVOID MiniportDeviceContext);
+NTSTATUS GsStopDevice(
+    IN_CONST_PVOID MiniportDeviceContext
+);

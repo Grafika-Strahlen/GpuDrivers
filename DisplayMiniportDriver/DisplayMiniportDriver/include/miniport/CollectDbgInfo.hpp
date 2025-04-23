@@ -2,4 +2,7 @@
 
 #include "Common.h"
 
-NTSTATUS HyCollectDbgInfo(IN_CONST_HANDLE hAdapter, IN_CONST_PDXGKARG_COLLECTDBGINFO pCollectDbgInfo);
+NTSTATUS GsCollectDbgInfo(
+    IN_CONST_HANDLE hAdapter, 
+    IN_CONST_PDXGKARG_COLLECTDBGINFO pCollectDbgInfo
+);

@@ -2,50 +2,50 @@
 
 #include "Common.h"
 
-NTSTATUS ThunkHySetPalette(
+NTSTATUS ThunkGsSetPalette(
     IN_CONST_HANDLE                 hAdapter,
     IN_CONST_PDXGKARG_SETPALETTE    pSetPalette
 );
 
-NTSTATUS ThunkHySetPointerPosition(
+NTSTATUS ThunkGsSetPointerPosition(
     IN_CONST_HANDLE                         hAdapter,
     IN_CONST_PDXGKARG_SETPOINTERPOSITION    pSetPointerPosition
 );
 
-NTSTATUS ThunkHySetPointerShape(
+NTSTATUS ThunkGsSetPointerShape(
     IN_CONST_HANDLE                     hAdapter,
     IN_CONST_PDXGKARG_SETPOINTERSHAPE   pSetPointerShape
 );
 
-NTSTATUS ThunkHyEscape(
+NTSTATUS ThunkGsEscape(
     IN_CONST_HANDLE                 hAdapter,
     IN_CONST_PDXGKARG_ESCAPE        pEscape
 );
 
-NTSTATUS ThunkHyCollectDbgInfo(
+NTSTATUS ThunkGsCollectDbgInfo(
     IN_CONST_HANDLE                         hAdapter,
     IN_CONST_PDXGKARG_COLLECTDBGINFO        pCollectDbgInfo
 );
 
-NTSTATUS ThunkHyRecommendMonitorModes(
+NTSTATUS ThunkGsRecommendMonitorModes(
     IN_CONST_HANDLE                                 hAdapter,
     IN_CONST_PDXGKARG_RECOMMENDMONITORMODES_CONST   pRecommendMonitorModes
 );
 
-NTSTATUS ThunkHyGetScanLine(
+NTSTATUS ThunkGsGetScanLine(
     IN_CONST_HANDLE             hAdapter,
     INOUT_PDXGKARG_GETSCANLINE  pGetScanLine
 );
 
 #if (DXGKDDI_INTERFACE_VERSION >= DXGKDDI_INTERFACE_VERSION_WIN7)
-NTSTATUS ThunkHyQueryVidPnCapability(
+NTSTATUS ThunkGsQueryVidPnCapability(
     IN_CONST_HANDLE                             hAdapter,
     INOUT_PDXGKARG_QUERYVIDPNHWCAPABILITY       pVidPnHWCaps
 );
 #endif
 
 #if (DXGKDDI_INTERFACE_VERSION >= DXGKDDI_INTERFACE_VERSION_WIN8)
-NTSTATUS ThunkHySystemDisplayEnable(
+NTSTATUS ThunkGsSystemDisplayEnable(
     _In_ PVOID MiniportDeviceContext,
     _In_ D3DDDI_VIDEO_PRESENT_TARGET_ID TargetId,
     _In_ PDXGKARG_SYSTEM_DISPLAY_ENABLE_FLAGS Flags,
@@ -55,7 +55,7 @@ NTSTATUS ThunkHySystemDisplayEnable(
 );
 #endif
 
-void ThunkHySystemDisplayWrite(
+void ThunkGsSystemDisplayWrite(
     _In_ PVOID MiniportDeviceContext,
     _In_reads_bytes_(SourceHeight* SourceStride) PVOID Source,
     _In_ UINT SourceWidth,
@@ -66,26 +66,26 @@ void ThunkHySystemDisplayWrite(
 );
 
 #if (DXGKDDI_INTERFACE_VERSION >= DXGKDDI_INTERFACE_VERSION_WIN8)
-NTSTATUS ThunkHyGetChildContainerId(
+NTSTATUS ThunkGsGetChildContainerId(
     _In_ PVOID MiniportDeviceContext,
     _In_ ULONG ChildUid,
     _Inout_ PDXGK_CHILD_CONTAINER_ID ContainerId
 );
 #endif
 
-NTSTATUS ThunkHyControlInterrupt(
+NTSTATUS ThunkGsControlInterrupt(
     IN_CONST_HANDLE                 hAdapter,
     IN_CONST_DXGK_INTERRUPT_TYPE    InterruptType,
     IN_BOOLEAN                      EnableInterrupt
 );
 
-NTSTATUS ThunkHySetPowerComponentFState(
+NTSTATUS ThunkGsSetPowerComponentFState(
     IN_CONST_HANDLE DriverContext,
     UINT            ComponentIndex,
     UINT            FState
 );
 
-NTSTATUS ThunkHyPowerRuntimeControlRequest(
+NTSTATUS ThunkGsPowerRuntimeControlRequest(
     IN_CONST_HANDLE DriverContext,
     IN              LPCGUID PowerControlCode,
     IN OPTIONAL     PVOID InBuffer,
@@ -96,7 +96,7 @@ NTSTATUS ThunkHyPowerRuntimeControlRequest(
 );
 
 #if (DXGKDDI_INTERFACE_VERSION >= DXGKDDI_INTERFACE_VERSION_WIN8)
-NTSTATUS ThunkHyNotifySurpriseRemoval(
+NTSTATUS ThunkGsNotifySurpriseRemoval(
     _In_ PVOID MiniportDeviceContext,
     _In_ DXGK_SURPRISE_REMOVAL_TYPE RemovalType
 );

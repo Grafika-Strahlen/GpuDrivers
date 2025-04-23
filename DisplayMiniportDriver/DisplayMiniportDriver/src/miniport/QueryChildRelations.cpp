@@ -5,7 +5,7 @@
 
 #pragma code_seg("PAGE")
 
-NTSTATUS HyQueryChildRelations(IN_CONST_PVOID MiniportDeviceContext, PDXGK_CHILD_DESCRIPTOR ChildRelations, ULONG ChildRelationsSize)
+NTSTATUS GsQueryChildRelations(IN_CONST_PVOID MiniportDeviceContext, PDXGK_CHILD_DESCRIPTOR ChildRelations, ULONG ChildRelationsSize)
 {
     (void) MiniportDeviceContext;
     (void) ChildRelations;

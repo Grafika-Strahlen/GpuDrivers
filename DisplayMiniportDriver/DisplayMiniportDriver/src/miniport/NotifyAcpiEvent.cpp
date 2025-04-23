@@ -4,7 +4,7 @@
 
 #pragma code_seg("PAGE_K")
 
-NTSTATUS HyNotifyAcpiEvent(IN_CONST_PVOID MiniportDeviceContext, IN_DXGK_EVENT_TYPE EventType, IN_ULONG Event, IN_PVOID Argument, OUT_PULONG AcpiFlags)
+NTSTATUS GsNotifyAcpiEvent(IN_CONST_PVOID MiniportDeviceContext, IN_DXGK_EVENT_TYPE EventType, IN_ULONG Event, IN_PVOID Argument, OUT_PULONG AcpiFlags)
 {
     (void) MiniportDeviceContext;
     (void) EventType;

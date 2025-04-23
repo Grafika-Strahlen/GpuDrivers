@@ -2,4 +2,6 @@
 
 #include "Common.h"
 
-NTSTATUS HyDestroyDevice(IN_CONST_HANDLE hDevice);
+NTSTATUS GsDestroyDevice(
+    IN_CONST_HANDLE hDevice
+);

@@ -5,7 +5,7 @@
 
 #pragma code_seg("PAGE")
 
-NTSTATUS HyRemoveDevice(IN_CONST_PVOID MiniportDeviceContext)
+NTSTATUS GsRemoveDevice(IN_CONST_PVOID MiniportDeviceContext)
 {
     PAGED_CODE();
     CHECK_IRQL(PASSIVE_LEVEL);

@@ -2,4 +2,6 @@
 
 #include "Common.h"
 
-void HyDpcRoutine(IN_CONST_PVOID MiniportDeviceContext);
+void GsDpcRoutine(
+    IN_CONST_PVOID MiniportDeviceContext
+);

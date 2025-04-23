@@ -3,7 +3,7 @@
 #include "miniport/ResetDevice.hpp"
 #include "GsDevice.hpp"
 
-void HyResetDevice(IN_CONST_PVOID MiniportDeviceContext)
+void GsResetDevice(IN_CONST_PVOID MiniportDeviceContext)
 {
     TRACE_ENTRYPOINT();
 

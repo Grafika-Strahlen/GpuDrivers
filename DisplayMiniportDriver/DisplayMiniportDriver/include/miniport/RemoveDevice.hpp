@@ -2,4 +2,6 @@
 
 #include "Common.h"
 
-NTSTATUS HyRemoveDevice(IN_CONST_PVOID MiniportDeviceContext);
+NTSTATUS GsRemoveDevice(
+    IN_CONST_PVOID MiniportDeviceContext
+);

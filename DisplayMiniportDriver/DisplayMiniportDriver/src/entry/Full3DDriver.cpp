@@ -115,63 +115,63 @@ _Use_decl_annotations_ NTSTATUS DriverEntryFull3D(IN PDRIVER_OBJECT DriverObject
     // Set the version to whatever is currently in the header we're compiling with.
     driverInitializationData.Version = DXGKDDI_INTERFACE_VERSION;
 
-    driverInitializationData.DxgkDdiAddDevice = HyAddDevice;
-    driverInitializationData.DxgkDdiStartDevice = HyStartDevice;
-    driverInitializationData.DxgkDdiStopDevice = HyStopDevice;
-    driverInitializationData.DxgkDdiRemoveDevice = HyRemoveDevice;
-    driverInitializationData.DxgkDdiDispatchIoRequest = HyDispatchIoRequest;
-    driverInitializationData.DxgkDdiInterruptRoutine = HyInterruptRoutine;
-    driverInitializationData.DxgkDdiDpcRoutine = HyDpcRoutine;
-    driverInitializationData.DxgkDdiQueryChildRelations = HyQueryChildRelations;
-    driverInitializationData.DxgkDdiQueryChildStatus = HyQueryChildStatus;
-    driverInitializationData.DxgkDdiQueryDeviceDescriptor = HyQueryDeviceDescriptor;
-    driverInitializationData.DxgkDdiSetPowerState = HySetPowerState;
-    driverInitializationData.DxgkDdiNotifyAcpiEvent = HyNotifyAcpiEvent;
-    driverInitializationData.DxgkDdiResetDevice = HyResetDevice;
+    driverInitializationData.DxgkDdiAddDevice = GsAddDevice;
+    driverInitializationData.DxgkDdiStartDevice = GsStartDevice;
+    driverInitializationData.DxgkDdiStopDevice = GsStopDevice;
+    driverInitializationData.DxgkDdiRemoveDevice = GsRemoveDevice;
+    driverInitializationData.DxgkDdiDispatchIoRequest = GsDispatchIoRequest;
+    driverInitializationData.DxgkDdiInterruptRoutine = GsInterruptRoutine;
+    driverInitializationData.DxgkDdiDpcRoutine = GsDpcRoutine;
+    driverInitializationData.DxgkDdiQueryChildRelations = GsQueryChildRelations;
+    driverInitializationData.DxgkDdiQueryChildStatus = GsQueryChildStatus;
+    driverInitializationData.DxgkDdiQueryDeviceDescriptor = GsQueryDeviceDescriptor;
+    driverInitializationData.DxgkDdiSetPowerState = GsSetPowerState;
+    driverInitializationData.DxgkDdiNotifyAcpiEvent = GsNotifyAcpiEvent;
+    driverInitializationData.DxgkDdiResetDevice = GsResetDevice;
     driverInitializationData.DxgkDdiUnload = GsUnload;
-    driverInitializationData.DxgkDdiQueryInterface = HyQueryInterface;
-    driverInitializationData.DxgkDdiControlEtwLogging = HyControlEtwLogging;
-    driverInitializationData.DxgkDdiQueryAdapterInfo = HyQueryAdapterInfo;
+    driverInitializationData.DxgkDdiQueryInterface = GsQueryInterface;
+    driverInitializationData.DxgkDdiControlEtwLogging = GsControlEtwLogging;
+    driverInitializationData.DxgkDdiQueryAdapterInfo = GsQueryAdapterInfo;
 
-    driverInitializationData.DxgkDdiSetPalette = ThunkHySetPalette;
-    driverInitializationData.DxgkDdiSetPointerPosition = ThunkHySetPointerPosition;
-    driverInitializationData.DxgkDdiSetPointerShape = ThunkHySetPointerShape;
-    driverInitializationData.DxgkDdiEscape = ThunkHyEscape;
-    driverInitializationData.DxgkDdiCollectDbgInfo = HyCollectDbgInfo;
-    driverInitializationData.DxgkDdiIsSupportedVidPn = HyIsSupportedVidPn;
-    driverInitializationData.DxgkDdiRecommendFunctionalVidPn = HyRecommendFunctionalVidPn;
-    driverInitializationData.DxgkDdiEnumVidPnCofuncModality = HyEnumVidPnCofuncModality;
+    driverInitializationData.DxgkDdiSetPalette = ThunkGsSetPalette;
+    driverInitializationData.DxgkDdiSetPointerPosition = ThunkGsSetPointerPosition;
+    driverInitializationData.DxgkDdiSetPointerShape = ThunkGsSetPointerShape;
+    driverInitializationData.DxgkDdiEscape = ThunkGsEscape;
+    driverInitializationData.DxgkDdiCollectDbgInfo = GsCollectDbgInfo;
+    driverInitializationData.DxgkDdiIsSupportedVidPn = GsIsSupportedVidPn;
+    driverInitializationData.DxgkDdiRecommendFunctionalVidPn = GsRecommendFunctionalVidPn;
+    driverInitializationData.DxgkDdiEnumVidPnCofuncModality = GsEnumVidPnCofuncModality;
 
-    driverInitializationData.DxgkDdiSetVidPnSourceVisibility = HySetVidPnSourceVisibility;
+    driverInitializationData.DxgkDdiSetVidPnSourceVisibility = GsSetVidPnSourceVisibility;
 
-    driverInitializationData.DxgkDdiCommitVidPn = HyCommitVidPn;
-    driverInitializationData.DxgkDdiUpdateActiveVidPnPresentPath = HyUpdateActiveVidPnPresentPath;
-    driverInitializationData.DxgkDdiRecommendMonitorModes = HyRecommendMonitorModes;
+    driverInitializationData.DxgkDdiCommitVidPn = GsCommitVidPn;
+    driverInitializationData.DxgkDdiUpdateActiveVidPnPresentPath = GsUpdateActiveVidPnPresentPath;
+    driverInitializationData.DxgkDdiRecommendMonitorModes = GsRecommendMonitorModes;
 #if HY_KMDOD_ENABLE_VSYNC_INTERRUPTS
-    driverInitializationData.DxgkDdiGetScanLine = HyGetScanLine;
+    driverInitializationData.DxgkDdiGetScanLine = GsGetScanLine;
 #else
     driverInitializationData.DxgkDdiGetScanLine = nullptr;
 #endif
-    driverInitializationData.DxgkDdiQueryVidPnHWCapability = ThunkHyQueryVidPnCapability;
+    driverInitializationData.DxgkDdiQueryVidPnHWCapability = ThunkGsQueryVidPnCapability;
 
 #if DXGKDDI_INTERFACE_VERSION >= DXGKDDI_INTERFACE_VERSION_WIN8
-    driverInitializationData.DxgkDdiPresentDisplayOnly = HyPresentDisplayOnly;
+    driverInitializationData.DxgkDdiPresentDisplayOnly = GsPresentDisplayOnly;
 #endif
 
-    driverInitializationData.DxgkDdiStopDeviceAndReleasePostDisplayOwnership = HyStopDeviceAndReleasePostDisplayOwnership;
+    driverInitializationData.DxgkDdiStopDeviceAndReleasePostDisplayOwnership = GsStopDeviceAndReleasePostDisplayOwnership;
 
-    driverInitializationData.DxgkDdiSystemDisplayEnable = ThunkHySystemDisplayEnable;
-    driverInitializationData.DxgkDdiSystemDisplayWrite = ThunkHySystemDisplayWrite;
+    driverInitializationData.DxgkDdiSystemDisplayEnable = ThunkGsSystemDisplayEnable;
+    driverInitializationData.DxgkDdiSystemDisplayWrite = ThunkGsSystemDisplayWrite;
 
-    driverInitializationData.DxgkDdiGetChildContainerId = ThunkHyGetChildContainerId;
+    driverInitializationData.DxgkDdiGetChildContainerId = ThunkGsGetChildContainerId;
 
 #if HY_KMDOD_ENABLE_VSYNC_INTERRUPTS
-    driverInitializationData.DxgkDdiControlInterrupt = HyControlInterrupt;
+    driverInitializationData.DxgkDdiControlInterrupt = GsControlInterrupt;
 #else
     driverInitializationData.DxgkDdiControlInterrupt = nullptr;
 #endif
 
-    driverInitializationData.DxgkDdiSetPowerComponentFState = ThunkHySetPowerComponentFState;
+    driverInitializationData.DxgkDdiSetPowerComponentFState = ThunkGsSetPowerComponentFState;
     //driverInitializationData.DxgkDdiPowerRuntimeControlRequest = ThunkHyPowerRuntimeControlRequest;
 
     //driverInitializationData.DxgkDdiNotifySurpriseRemoval = ThunkHyNotifySurpriseRemoval;
@@ -195,25 +195,25 @@ _Use_decl_annotations_ NTSTATUS DriverEntryFull3D(IN PDRIVER_OBJECT DriverObject
     driverInitializationData.Version = DXGKDDI_INTERFACE_VERSION;
     // driverInitializationData.Version = DXGKDDI_INTERFACE_VERSION_VISTA;
 
-    driverInitializationData.DxgkDdiAddDevice = HyAddDevice;
-    driverInitializationData.DxgkDdiStartDevice = HyStartDevice;
-    driverInitializationData.DxgkDdiStopDevice = HyStopDevice;
-    driverInitializationData.DxgkDdiRemoveDevice = HyRemoveDevice;
-    driverInitializationData.DxgkDdiDispatchIoRequest = HyDispatchIoRequest;
-    driverInitializationData.DxgkDdiInterruptRoutine = HyInterruptRoutine;
-    driverInitializationData.DxgkDdiDpcRoutine = HyDpcRoutine;
-    driverInitializationData.DxgkDdiQueryChildRelations = HyQueryChildRelations;
-    driverInitializationData.DxgkDdiQueryChildStatus = HyQueryChildStatus;
-    driverInitializationData.DxgkDdiQueryDeviceDescriptor = HyQueryDeviceDescriptor;
-    driverInitializationData.DxgkDdiSetPowerState = HySetPowerState;
-    driverInitializationData.DxgkDdiNotifyAcpiEvent = HyNotifyAcpiEvent;
-    driverInitializationData.DxgkDdiResetDevice = HyResetDevice;
+    driverInitializationData.DxgkDdiAddDevice = GsAddDevice;
+    driverInitializationData.DxgkDdiStartDevice = GsStartDevice;
+    driverInitializationData.DxgkDdiStopDevice = GsStopDevice;
+    driverInitializationData.DxgkDdiRemoveDevice = GsRemoveDevice;
+    driverInitializationData.DxgkDdiDispatchIoRequest = GsDispatchIoRequest;
+    driverInitializationData.DxgkDdiInterruptRoutine = GsInterruptRoutine;
+    driverInitializationData.DxgkDdiDpcRoutine = GsDpcRoutine;
+    driverInitializationData.DxgkDdiQueryChildRelations = GsQueryChildRelations;
+    driverInitializationData.DxgkDdiQueryChildStatus = GsQueryChildStatus;
+    driverInitializationData.DxgkDdiQueryDeviceDescriptor = GsQueryDeviceDescriptor;
+    driverInitializationData.DxgkDdiSetPowerState = GsSetPowerState;
+    driverInitializationData.DxgkDdiNotifyAcpiEvent = GsNotifyAcpiEvent;
+    driverInitializationData.DxgkDdiResetDevice = GsResetDevice;
     driverInitializationData.DxgkDdiUnload = GsUnload;
-    driverInitializationData.DxgkDdiQueryInterface = HyQueryInterface;
-    driverInitializationData.DxgkDdiControlEtwLogging = HyControlEtwLogging;
+    driverInitializationData.DxgkDdiQueryInterface = GsQueryInterface;
+    driverInitializationData.DxgkDdiControlEtwLogging = GsControlEtwLogging;
 
-    driverInitializationData.DxgkDdiQueryAdapterInfo = HyQueryAdapterInfo;
-    driverInitializationData.DxgkDdiCreateDevice = HyCreateDevice;
+    driverInitializationData.DxgkDdiQueryAdapterInfo = GsQueryAdapterInfo;
+    driverInitializationData.DxgkDdiCreateDevice = GsCreateDevice;
     driverInitializationData.DxgkDdiCreateAllocation = GsCreateAllocation;
     driverInitializationData.DxgkDdiDestroyAllocation = GsDestroyAllocation;
     // driverInitializationData.DxgkDdiDescribeAllocation = (PDXGKDDI_DESCRIBEALLOCATION) DdiNoOpNTSTATUS;
@@ -224,29 +224,29 @@ _Use_decl_annotations_ NTSTATUS DriverEntryFull3D(IN PDRIVER_OBJECT DriverObject
     // driverInitializationData.DxgkDdiSubmitCommand = (PDXGKDDI_SUBMITCOMMAND) DdiNoOpNTSTATUS;
     // driverInitializationData.DxgkDdiPreemptCommand = (PDXGKDDI_PREEMPTCOMMAND) DdiNoOpNTSTATUS;
     // driverInitializationData.DxgkDdiBuildPagingBuffer = (PDXGKDDI_BUILDPAGINGBUFFER) DdiNoOpNTSTATUS;
-    driverInitializationData.DxgkDdiSetPalette = ThunkHySetPalette;
-    driverInitializationData.DxgkDdiSetPointerPosition = ThunkHySetPointerPosition;
-    driverInitializationData.DxgkDdiSetPointerShape = ThunkHySetPointerShape;
+    driverInitializationData.DxgkDdiSetPalette = ThunkGsSetPalette;
+    driverInitializationData.DxgkDdiSetPointerPosition = ThunkGsSetPointerPosition;
+    driverInitializationData.DxgkDdiSetPointerShape = ThunkGsSetPointerShape;
     // driverInitializationData.DxgkDdiResetFromTimeout = (PDXGKDDI_RESETFROMTIMEOUT) DdiNoOpNTSTATUS;
     // driverInitializationData.DxgkDdiRestartFromTimeout = (PDXGKDDI_RESTARTFROMTIMEOUT) DdiNoOpNTSTATUS;
-    driverInitializationData.DxgkDdiEscape = ThunkHyEscape;
-    driverInitializationData.DxgkDdiCollectDbgInfo = HyCollectDbgInfo;
+    driverInitializationData.DxgkDdiEscape = ThunkGsEscape;
+    driverInitializationData.DxgkDdiCollectDbgInfo = GsCollectDbgInfo;
     // driverInitializationData.DxgkDdiQueryCurrentFence = (PDXGKDDI_QUERYCURRENTFENCE) DdiNoOpNTSTATUS;
-    driverInitializationData.DxgkDdiIsSupportedVidPn = HyIsSupportedVidPn;
-    driverInitializationData.DxgkDdiRecommendFunctionalVidPn = HyRecommendFunctionalVidPn;
-    driverInitializationData.DxgkDdiEnumVidPnCofuncModality = HyEnumVidPnCofuncModality;
+    driverInitializationData.DxgkDdiIsSupportedVidPn = GsIsSupportedVidPn;
+    driverInitializationData.DxgkDdiRecommendFunctionalVidPn = GsRecommendFunctionalVidPn;
+    driverInitializationData.DxgkDdiEnumVidPnCofuncModality = GsEnumVidPnCofuncModality;
     driverInitializationData.DxgkDdiSetVidPnSourceAddress = GsSetVidPnSourceAddress;
-    driverInitializationData.DxgkDdiSetVidPnSourceVisibility = HySetVidPnSourceVisibility;
-    driverInitializationData.DxgkDdiCommitVidPn = HyCommitVidPn;
-    driverInitializationData.DxgkDdiUpdateActiveVidPnPresentPath = HyUpdateActiveVidPnPresentPath;
-    driverInitializationData.DxgkDdiRecommendMonitorModes = HyRecommendMonitorModes;
+    driverInitializationData.DxgkDdiSetVidPnSourceVisibility = GsSetVidPnSourceVisibility;
+    driverInitializationData.DxgkDdiCommitVidPn = GsCommitVidPn;
+    driverInitializationData.DxgkDdiUpdateActiveVidPnPresentPath = GsUpdateActiveVidPnPresentPath;
+    driverInitializationData.DxgkDdiRecommendMonitorModes = GsRecommendMonitorModes;
     // driverInitializationData.DxgkDdiRecommendVidPnTopology = (PDXGKDDI_RECOMMENDVIDPNTOPOLOGY) DdiNoOpNTSTATUS;
-    driverInitializationData.DxgkDdiGetScanLine = HyGetScanLine;
+    driverInitializationData.DxgkDdiGetScanLine = GsGetScanLine;
     // driverInitializationData.DxgkDdiStopCapture = (PDXGKDDI_STOPCAPTURE) DdiNoOpNTSTATUS;
-    driverInitializationData.DxgkDdiControlInterrupt = HyControlInterrupt;
+    driverInitializationData.DxgkDdiControlInterrupt = GsControlInterrupt;
     // driverInitializationData.DxgkDdiCreateOverlay = (PDXGKDDI_CREATEOVERLAY) DdiNoOpNTSTATUS;
     //
-    driverInitializationData.DxgkDdiDestroyDevice = HyDestroyDevice;
+    driverInitializationData.DxgkDdiDestroyDevice = GsDestroyDevice;
     driverInitializationData.DxgkDdiOpenAllocation = GsOpenAllocation;
     driverInitializationData.DxgkDdiCloseAllocation = GsCloseAllocation;
     // driverInitializationData.DxgkDdiRender = (PDXGKDDI_RENDER) DdiNoOpNTSTATUS;
@@ -263,12 +263,12 @@ _Use_decl_annotations_ NTSTATUS DriverEntryFull3D(IN PDRIVER_OBJECT DriverObject
     // driverInitializationData.DxgkDdiSetDisplayPrivateDriverFormat = (PDXGKDDI_SETDISPLAYPRIVATEDRIVERFORMAT) DdiNoOpNTSTATUS;
 
 #if (DXGKDDI_INTERFACE_VERSION >= DXGKDDI_INTERFACE_VERSION_WIN8)
-    driverInitializationData.DxgkDdiSetPowerComponentFState = ThunkHySetPowerComponentFState;
+    driverInitializationData.DxgkDdiSetPowerComponentFState = ThunkGsSetPowerComponentFState;
 
-    driverInitializationData.DxgkDdiStopDeviceAndReleasePostDisplayOwnership = HyStopDeviceAndReleasePostDisplayOwnership;
+    driverInitializationData.DxgkDdiStopDeviceAndReleasePostDisplayOwnership = GsStopDeviceAndReleasePostDisplayOwnership;
 
-    driverInitializationData.DxgkDdiSystemDisplayEnable = ThunkHySystemDisplayEnable;
-    driverInitializationData.DxgkDdiSystemDisplayWrite = ThunkHySystemDisplayWrite;
+    driverInitializationData.DxgkDdiSystemDisplayEnable = ThunkGsSystemDisplayEnable;
+    driverInitializationData.DxgkDdiSystemDisplayWrite = ThunkGsSystemDisplayWrite;
 #endif
 
     // Initialize DXGK and return the result back to the kernel.

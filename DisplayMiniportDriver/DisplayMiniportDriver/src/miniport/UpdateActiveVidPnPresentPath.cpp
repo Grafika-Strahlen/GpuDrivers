@@ -3,7 +3,7 @@
 #include "miniport/UpdateActiveVidPnPresentPath.hpp"
 #include "GsDevice.hpp"
 
-NTSTATUS HyUpdateActiveVidPnPresentPath(IN_CONST_HANDLE hAdapter, IN_CONST_PDXGKARG_UPDATEACTIVEVIDPNPRESENTPATH_CONST pUpdateActiveVidPnPresentPath)
+NTSTATUS GsUpdateActiveVidPnPresentPath(IN_CONST_HANDLE hAdapter, IN_CONST_PDXGKARG_UPDATEACTIVEVIDPNPRESENTPATH_CONST pUpdateActiveVidPnPresentPath)
 {
     PAGED_CODE();
     CHECK_IRQL(PASSIVE_LEVEL);

@@ -6,7 +6,7 @@
 
 #pragma code_seg("PAGE")
 
-NTSTATUS HyCollectDbgInfo(IN_CONST_HANDLE hAdapter, IN_CONST_PDXGKARG_COLLECTDBGINFO pCollectDbgInfo)
+NTSTATUS GsCollectDbgInfo(IN_CONST_HANDLE hAdapter, IN_CONST_PDXGKARG_COLLECTDBGINFO pCollectDbgInfo)
 {
     // This function should collect debug information for various failures and can be
     // called at any time and at high IRQL (that is, the IRQL that DxgkDdiCollectDbgInfo
