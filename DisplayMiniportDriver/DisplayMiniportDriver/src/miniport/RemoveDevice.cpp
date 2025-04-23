@@ -1,7 +1,7 @@
 // See https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/dispmprt/nc-dispmprt-dxgkddi_remove_device
 #include "Common.h"
 #include "miniport/RemoveDevice.hpp"
-#include "HyDevice.hpp"
+#include "GsDevice.hpp"
 
 #pragma code_seg("PAGE")
 

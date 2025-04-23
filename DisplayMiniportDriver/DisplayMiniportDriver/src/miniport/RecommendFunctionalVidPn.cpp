@@ -1,7 +1,7 @@
 // See https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/d3dkmddi/nc-d3dkmddi-dxgkddi_recommendfunctionalvidpn
 #include "Common.h"
 #include "miniport/RecommendFunctionalVidPn.hpp"
-#include "HyDevice.hpp"
+#include "GsDevice.hpp"
 
 #pragma code_seg("PAGE")
 

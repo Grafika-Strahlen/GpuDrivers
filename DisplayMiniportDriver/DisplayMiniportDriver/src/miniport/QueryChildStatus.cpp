@@ -1,7 +1,7 @@
 // See https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/dispmprt/nc-dispmprt-dxgkddi_query_child_status
 #include "Common.h"
 #include "miniport/QueryChildStatus.hpp"
-#include "HyDevice.hpp"
+#include "GsDevice.hpp"
 
 #pragma code_seg("PAGE")
 

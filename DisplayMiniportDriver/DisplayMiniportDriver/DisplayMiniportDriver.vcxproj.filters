@@ -123,7 +123,7 @@
     <ClCompile Include="src\miniport\PresentDisplayOnly.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\HyDevice.cpp">
+    <ClCompile Include="src\GsDevice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\RegisterMemCopy.c">
@@ -317,7 +317,7 @@
     <ClInclude Include="include\Objects.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\HyDevice.hpp">
+    <ClInclude Include="include\GsDevice.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\miniport\EnumVidPnCofuncModality.hpp">

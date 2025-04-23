@@ -2,7 +2,7 @@
 // See https://learn.microsoft.com/en-us/windows-hardware/drivers/display/threading-and-synchronization-zero-level
 #include "Common.h"
 #include "miniport/CollectDbgInfo.hpp"
-#include "HyDevice.hpp"
+#include "GsDevice.hpp"
 
 #pragma code_seg("PAGE")
 

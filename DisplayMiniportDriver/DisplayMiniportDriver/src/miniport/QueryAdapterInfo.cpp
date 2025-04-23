@@ -1,7 +1,7 @@
 // See https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/d3dkmddi/nc-d3dkmddi-dxgkddi_queryadapterinfo
 #include "Common.h"
 #include "miniport/QueryAdapterInfo.hpp"
-#include "HyDevice.hpp"
+#include "GsDevice.hpp"
 
 #pragma code_seg("PAGE")
 

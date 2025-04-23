@@ -524,7 +524,7 @@ xcopy /y $(SolutionDir)..\UserModeDrivers\bin\x64\$(Configuration)\D3DUserModeDr
     <ClCompile Include="src\GsMemoryManager.cpp" />
     <ClCompile Include="src\GsPresentManager.cpp" />
     <ClCompile Include="src\Guids.c" />
-    <ClCompile Include="src\HyDevice.cpp" />
+    <ClCompile Include="src\GsDevice.cpp" />
     <ClCompile Include="src\I2CInterface.c" />
     <ClCompile Include="src\miniport\InterruptRoutine.cpp" />
     <ClCompile Include="src\miniport\IsSupportedVidPn.cpp" />
@@ -589,7 +589,7 @@ xcopy /y $(SolutionDir)..\UserModeDrivers\bin\x64\$(Configuration)\D3DUserModeDr
     <ClInclude Include="include\GsGraphicsContext.hpp" />
     <ClInclude Include="include\GsPresentManager.hpp" />
     <ClInclude Include="include\GsLogicalDevice.hpp" />
-    <ClInclude Include="include\HyDevice.hpp" />
+    <ClInclude Include="include\GsDevice.hpp" />
     <ClInclude Include="include\I2CInterface.h" />
     <ClInclude Include="include\miniport\InterruptRoutine.hpp" />
     <ClInclude Include="include\miniport\IsSupportedVidPn.hpp" />

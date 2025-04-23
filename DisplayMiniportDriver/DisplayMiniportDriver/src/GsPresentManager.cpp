@@ -2,7 +2,7 @@
 #include "GsPresentManager.hpp"
 
 #include "BlockTransfer.hpp"
-#include "HyDevice.hpp"
+#include "GsDevice.hpp"
 #include "MemoryAllocator.h"
 #include "XStdDefPolyFill.h"
 #include <new>

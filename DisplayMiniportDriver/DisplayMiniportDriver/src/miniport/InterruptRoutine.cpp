@@ -1,7 +1,7 @@
 // See https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/dispmprt/nc-dispmprt-dxgkddi_interrupt_routine
 #include "Common.h"
 #include "miniport/InterruptRoutine.hpp"
-#include "HyDevice.hpp"
+#include "GsDevice.hpp"
 
 #pragma code_seg("_KTEXT")
 

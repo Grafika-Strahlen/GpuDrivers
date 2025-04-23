@@ -2,7 +2,7 @@
 // See https://learn.microsoft.com/en-us/windows-hardware/drivers/display/saving-energy-with-vsync-control#display-only-vsync-requirements-for-windows-8-and-later-versions
 #include "Common.h"
 #include "miniport/GetScanLine.hpp"
-#include "HyDevice.hpp"
+#include "GsDevice.hpp"
 
 #pragma code_seg("PAGE")
 

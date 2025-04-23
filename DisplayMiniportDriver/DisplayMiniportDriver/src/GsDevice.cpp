@@ -12,7 +12,7 @@ extern "C" {
 } /* extern "C" */
 #endif
 
-#include "HyDevice.hpp"
+#include "GsDevice.hpp"
 #include "Logging.h"
 #include "MemoryAllocator.h"
 #include "Config.h"

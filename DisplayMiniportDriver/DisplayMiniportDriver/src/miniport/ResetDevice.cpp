@@ -1,7 +1,7 @@
 // See https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/dispmprt/nc-dispmprt-dxgkddi_reset_device
 #include "Common.h"
 #include "miniport/ResetDevice.hpp"
-#include "HyDevice.hpp"
+#include "GsDevice.hpp"
 
 void HyResetDevice(IN_CONST_PVOID MiniportDeviceContext)
 {
