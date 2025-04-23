@@ -489,6 +489,7 @@ xcopy /y $(SolutionDir)..\UserModeDrivers\bin\x64\$(Configuration)\D3DUserModeDr
     <FilesToPackage Include="$(TargetPath)" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\DriverConfig.cpp" />
     <ClCompile Include="src\miniport\AddDevice.cpp" />
     <ClCompile Include="src\BlockTransfer.cpp" />
     <ClCompile Include="src\miniport\CloseAllocation.cpp" />
@@ -554,6 +555,7 @@ xcopy /y $(SolutionDir)..\UserModeDrivers\bin\x64\$(Configuration)\D3DUserModeDr
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DriverVersionNumbers.h" />
+    <ClInclude Include="include\DriverConfig.hpp" />
     <ClInclude Include="include\miniport\AddDevice.hpp" />
     <ClInclude Include="include\BlockTransfer.hpp" />
     <ClInclude Include="include\miniport\CloseAllocation.hpp" />

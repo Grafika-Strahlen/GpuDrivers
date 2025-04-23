@@ -6,10 +6,10 @@ extern "C" {
 
 #include "Config.h"
 #include <ntddk.h>
+#include <ntstrsafe.h>
 #include "D3DPolyFills.h"
 
 #include "Logging.h"
-
 #include "MemoryAllocator.h"
 
 #if ENFORCE_VAGUE_STATUSES
@@ -20,4 +20,8 @@ extern "C" {
 
 #ifdef __cplusplus
 } /* extern "C" */
+#endif
+
+#ifdef __cplusplus
+#include "Objects.hpp"
 #endif

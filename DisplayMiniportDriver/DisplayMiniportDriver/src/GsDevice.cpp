@@ -1,22 +1,20 @@
+#include "Common.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#include "Common.h"
 #include <wdmguid.h>
 #include "RegisterMemCopy.h"
-#include "shared/CreateAllocationDriverData.hpp"
-#include <ntstrsafe.h>
 
 #ifdef __cplusplus
 } /* extern "C" */
 #endif
 
 #include "GsDevice.hpp"
-#include "Logging.h"
-#include "MemoryAllocator.h"
-#include "Config.h"
 #include "GsLogicalDevice.hpp"
+#include "shared/CreateAllocationDriverData.hpp"
+#include "DriverConfig.hpp"
 
 #pragma code_seg(push)
 #pragma code_seg("PAGE")
@@ -369,6 +367,8 @@ NTSTATUS GsMiniportDevice::StartDevice(IN_PDXGK_START_INFO DxgkStartInfo, IN_PDX
     // We have one child, for the display output, but not the display itself.
     *NumberOfChildren = 1;
 
+    GsConfigManager::Instance().SetSuccessfulLaunch();
+
     return STATUS_SUCCESS;
 }
 
@@ -573,7 +573,7 @@ BOOLEAN GsMiniportDevice::InterruptRoutine(IN_ULONG MessageNumber) noexcept
     (void) MessageNumber;
 
     CHECK_IRQL(HIGH_LEVEL); // HIGH_LEVEL is the best approximation of DIRQL
-
+    
     if(!m_Flags.IsStarted)
     {
         return TRUE;
@@ -1214,7 +1214,10 @@ NTSTATUS GsMiniportDevice::CollectDbgInfo(IN_CONST_PDXGKARG_COLLECTDBGINFO pColl
 
     LOG_WARN("Reason: 0x%X, Buffer: %p, Buffer Size: %zu (0x%zX), Extension: %p\n", pCollectDbgInfo->Reason, pCollectDbgInfo->pBuffer, pCollectDbgInfo->BufferSize, pCollectDbgInfo->BufferSize, pCollectDbgInfo->pExtension);
 
-    pCollectDbgInfo->pExtension->CurrentDmaBufferOffset = 0;
+    if(pCollectDbgInfo->pExtension)
+    {
+        pCollectDbgInfo->pExtension->CurrentDmaBufferOffset = 0;
+    }
 
     if(pCollectDbgInfo->Reason == VIDEO_TDR_TIMEOUT_DETECTED)
     {
