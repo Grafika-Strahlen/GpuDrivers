@@ -347,6 +347,7 @@
     <ClInclude Include="include\dxgi\DxgiEnumDebug.hpp" />
     <ClInclude Include="include\FormatWindowsError.hpp" />
     <ClInclude Include="include\Logging.hpp" />
+    <ClInclude Include="include\SpinLock.hpp" />
     <ClInclude Include="include\WindowsNtPolyfill.hpp" />
     <ClInclude Include="include\d3d10\GsDevice10.hpp" />
   </ItemGroup>
