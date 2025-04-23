@@ -21,7 +21,7 @@ NTSTATUS HySetPowerState(IN_CONST_PVOID MiniportDeviceContext, IN_ULONG DeviceUi
     }
 
     // Get our context structure.
-    HyMiniportDevice* const deviceContext = HyMiniportDevice::FromHandle(MiniportDeviceContext);
+    GsMiniportDevice* const deviceContext = GsMiniportDevice::FromHandle(MiniportDeviceContext);
 
     return deviceContext->SetPowerState(DeviceUid, DevicePowerState, ActionType);
 }

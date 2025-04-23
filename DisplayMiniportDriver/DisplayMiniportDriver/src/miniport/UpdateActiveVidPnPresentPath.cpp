@@ -26,7 +26,7 @@ NTSTATUS HyUpdateActiveVidPnPresentPath(IN_CONST_HANDLE hAdapter, IN_CONST_PDXGK
         return STATUS_INVALID_PARAMETER_2;
     }
 
-    HyMiniportDevice* const deviceContext = HyMiniportDevice::FromHandle(hAdapter);
+    GsMiniportDevice* const deviceContext = GsMiniportDevice::FromHandle(hAdapter);
 
     return deviceContext->UpdateActiveVidPnPresentPath(pUpdateActiveVidPnPresentPath);
 }

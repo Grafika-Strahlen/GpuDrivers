@@ -38,7 +38,7 @@ NTSTATUS HyCommitVidPn(IN_CONST_HANDLE hAdapter, IN_CONST_PDXGKARG_COMMITVIDPN_C
     );
 
     // Get our context structure.
-    HyMiniportDevice* const deviceContext = HyMiniportDevice::FromHandle(hAdapter);
+    GsMiniportDevice* const deviceContext = GsMiniportDevice::FromHandle(hAdapter);
 
     return deviceContext->CommitVidPn(pCommitVidPn);
 }

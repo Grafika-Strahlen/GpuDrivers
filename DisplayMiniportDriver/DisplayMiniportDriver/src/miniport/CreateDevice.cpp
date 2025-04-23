@@ -29,7 +29,7 @@ NTSTATUS HyCreateDevice(IN_CONST_HANDLE hAdapter, INOUT_PDXGKARG_CREATEDEVICE pC
     }
 
     // Get our context structure.
-    HyMiniportDevice* const deviceContext = HyMiniportDevice::FromHandle(hAdapter);
+    GsMiniportDevice* const deviceContext = GsMiniportDevice::FromHandle(hAdapter);
 
     return deviceContext->CreateDevice(pCreateDevice);
 }

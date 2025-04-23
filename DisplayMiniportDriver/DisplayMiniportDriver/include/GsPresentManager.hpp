@@ -4,7 +4,7 @@
 
 #include "Objects.hpp"
 
-class HyMiniportDevice;
+class GsMiniportDevice;
 
 struct GsPresentData final
 {
@@ -35,7 +35,7 @@ public:
     void* operator new(SIZE_T count);
     void operator delete(void* const ptr);
 public:
-    GsPresentManager(HyMiniportDevice* const deviceContext) noexcept;
+    GsPresentManager(GsMiniportDevice* const deviceContext) noexcept;
 
     ~GsPresentManager() noexcept
     {
@@ -70,7 +70,7 @@ private:
 private:
     static void StaticThreadFunc(HANDLE Context) noexcept;
 private:
-    HyMiniportDevice* m_DeviceContext;
+    GsMiniportDevice* m_DeviceContext;
 
     volatile LONG m_PresentThreadShouldStop;
     LIST_ENTRY m_PendingPresentQueue;

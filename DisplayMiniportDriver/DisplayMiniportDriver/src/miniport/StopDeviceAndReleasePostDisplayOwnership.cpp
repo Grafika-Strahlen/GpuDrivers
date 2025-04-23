@@ -21,7 +21,7 @@ NTSTATUS HyStopDeviceAndReleasePostDisplayOwnership(IN_CONST_PVOID MiniportDevic
     }
 
     // Get our context structure.
-    HyMiniportDevice* const deviceContext = HyMiniportDevice::FromHandle(MiniportDeviceContext);
+    GsMiniportDevice* const deviceContext = GsMiniportDevice::FromHandle(MiniportDeviceContext);
 
     return deviceContext->StopDeviceAndReleasePostDisplayOwnership(TargetId, DisplayInfo);
 }

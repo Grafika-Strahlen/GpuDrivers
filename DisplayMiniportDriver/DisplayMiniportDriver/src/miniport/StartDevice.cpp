@@ -52,7 +52,7 @@ NTSTATUS HyStartDevice(IN_CONST_PVOID MiniportDeviceContext, IN_PDXGK_START_INFO
     }
 
     // Get our context structure.
-    HyMiniportDevice* const deviceContext = HyMiniportDevice::FromHandle(MiniportDeviceContext);
+    GsMiniportDevice* const deviceContext = GsMiniportDevice::FromHandle(MiniportDeviceContext);
 
     return deviceContext->StartDevice(DxgkStartInfo, DxgkInterface, NumberOfVideoPresentSurfaces, NumberOfChildren);
 }

@@ -27,7 +27,7 @@ void GsPresentManager::operator delete(void* const ptr)
     HyDeallocate(ptr, POOL_TAG_PRESENT);
 }
 
-GsPresentManager::GsPresentManager(HyMiniportDevice* const deviceContext) noexcept
+GsPresentManager::GsPresentManager(GsMiniportDevice* const deviceContext) noexcept
     : m_DeviceContext(deviceContext)
     , m_PresentThreadShouldStop(0)
     , m_PendingPresentQueue { }

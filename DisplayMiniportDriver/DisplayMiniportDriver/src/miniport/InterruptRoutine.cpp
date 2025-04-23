@@ -25,7 +25,7 @@ BOOLEAN HyInterruptRoutine(IN_CONST_PVOID MiniportDeviceContext, IN_ULONG Messag
         return FALSE;
     }
 
-    HyMiniportDevice* const deviceContext = HyMiniportDevice::FromHandle(MiniportDeviceContext);
+    GsMiniportDevice* const deviceContext = GsMiniportDevice::FromHandle(MiniportDeviceContext);
 
     return deviceContext->InterruptRoutine(MessageNumber);
 }

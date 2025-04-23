@@ -30,17 +30,17 @@ static D3DDDIFORMAT gPixelFormats[] = {
 
 static NTSTATUS MapFrameBuffer(PHYSICAL_ADDRESS PhysicalAddress, ULONG Length, void** VirtualAddress) noexcept;
 
-void* HyMiniportDevice::operator new(const SIZE_T count)
+void* GsMiniportDevice::operator new(const SIZE_T count)
 {
     return HyAllocate(ExDefaultNonPagedPoolType, count, POOL_TAG_DEVICE_CONTEXT);
 }
 
-void HyMiniportDevice::operator delete(void* const ptr)
+void GsMiniportDevice::operator delete(void* const ptr)
 {
     HyDeallocate(ptr, POOL_TAG_DEVICE_CONTEXT);
 }
 
-HyMiniportDevice::HyMiniportDevice(PDEVICE_OBJECT PhysicalDeviceObject) noexcept
+GsMiniportDevice::GsMiniportDevice(PDEVICE_OBJECT PhysicalDeviceObject) noexcept
     : m_PhysicalDeviceObject(PhysicalDeviceObject)
     , m_DxgkStartInfo { }
     , m_DxgkInterface { }
@@ -137,7 +137,7 @@ static NTSTATUS GetPCIInterface(PDEVICE_OBJECT physicalDeviceObject, PBUS_INTERF
     return STATUS_SUCCESS;
 }
 
-NTSTATUS HyMiniportDevice::GetAdapterInfo() noexcept
+NTSTATUS GsMiniportDevice::GetAdapterInfo() noexcept
 {
     LOG_DEBUG("PDO: 0x%p, Type: %d, Device Type: %s [0x%08X]\n", m_PhysicalDeviceObject, m_PhysicalDeviceObject->Type, GetFileDeviceString(m_PhysicalDeviceObject->DeviceType), m_PhysicalDeviceObject->DeviceType);
 
@@ -236,7 +236,7 @@ NTSTATUS HyMiniportDevice::GetAdapterInfo() noexcept
     return retStatus;
 }
 
-NTSTATUS HyMiniportDevice::StartDevice(IN_PDXGK_START_INFO DxgkStartInfo, IN_PDXGKRNL_INTERFACE DxgkInterface, OUT_PULONG NumberOfVideoPresentSurfaces, OUT_PULONG NumberOfChildren) noexcept
+NTSTATUS GsMiniportDevice::StartDevice(IN_PDXGK_START_INFO DxgkStartInfo, IN_PDXGKRNL_INTERFACE DxgkInterface, OUT_PULONG NumberOfVideoPresentSurfaces, OUT_PULONG NumberOfChildren) noexcept
 {
     CHECK_IRQL(PASSIVE_LEVEL);
 
@@ -372,7 +372,7 @@ NTSTATUS HyMiniportDevice::StartDevice(IN_PDXGK_START_INFO DxgkStartInfo, IN_PDX
     return STATUS_SUCCESS;
 }
 
-NTSTATUS HyMiniportDevice::CheckDevice() noexcept
+NTSTATUS GsMiniportDevice::CheckDevice() noexcept
 {
     PCI_COMMON_HEADER pciHeader { };
     ULONG bytesRead;
@@ -399,7 +399,7 @@ NTSTATUS HyMiniportDevice::CheckDevice() noexcept
     }
 }
 
-NTSTATUS HyMiniportDevice::LoadPostDisplayInfo() noexcept
+NTSTATUS GsMiniportDevice::LoadPostDisplayInfo() noexcept
 {
 #if (DXGKDDI_INTERFACE_VERSION >= DXGKDDI_INTERFACE_VERSION_WIN8)
     // Check if DxgkCbAcquirePostDisplayOwnership exists.
@@ -426,7 +426,7 @@ NTSTATUS HyMiniportDevice::LoadPostDisplayInfo() noexcept
     return STATUS_SUCCESS;
 }
 
-NTSTATUS HyMiniportDevice::CheckDevicePrefix(bool* const gpuTypeFound) noexcept
+NTSTATUS GsMiniportDevice::CheckDevicePrefix(bool* const gpuTypeFound) noexcept
 {
     NTSTATUS getEnumeratorStatus;
     wchar_t* enumerator;
@@ -547,7 +547,7 @@ NTSTATUS HyMiniportDevice::CheckDevicePrefix(bool* const gpuTypeFound) noexcept
     return STATUS_SUCCESS;
 }
 
-NTSTATUS HyMiniportDevice::StopDevice() noexcept
+NTSTATUS GsMiniportDevice::StopDevice() noexcept
 {
     CHECK_IRQL(PASSIVE_LEVEL);
 
@@ -568,7 +568,7 @@ NTSTATUS HyMiniportDevice::StopDevice() noexcept
 
 #pragma code_seg(push)
 #pragma code_seg("_KTEXT")
-BOOLEAN HyMiniportDevice::InterruptRoutine(IN_ULONG MessageNumber) noexcept
+BOOLEAN GsMiniportDevice::InterruptRoutine(IN_ULONG MessageNumber) noexcept
 {
     (void) MessageNumber;
 
@@ -626,7 +626,7 @@ BOOLEAN HyMiniportDevice::InterruptRoutine(IN_ULONG MessageNumber) noexcept
     return TRUE;
 }
 
-void HyMiniportDevice::DpcRoutine() noexcept
+void GsMiniportDevice::DpcRoutine() noexcept
 {
     CHECK_IRQL(DISPATCH_LEVEL);
 
@@ -639,7 +639,7 @@ void HyMiniportDevice::DpcRoutine() noexcept
 }
 #pragma code_seg(pop)
 
-NTSTATUS HyMiniportDevice::QueryChildRelations(PDXGK_CHILD_DESCRIPTOR ChildRelations, ULONG ChildRelationsSize) noexcept
+NTSTATUS GsMiniportDevice::QueryChildRelations(PDXGK_CHILD_DESCRIPTOR ChildRelations, ULONG ChildRelationsSize) noexcept
 {
     CHECK_IRQL(PASSIVE_LEVEL);
 
@@ -662,7 +662,7 @@ NTSTATUS HyMiniportDevice::QueryChildRelations(PDXGK_CHILD_DESCRIPTOR ChildRelat
     return STATUS_SUCCESS;
 }
 
-NTSTATUS HyMiniportDevice::QueryChildStatus(INOUT_PDXGK_CHILD_STATUS ChildStatus, IN_BOOLEAN NonDestructiveOnly) noexcept
+NTSTATUS GsMiniportDevice::QueryChildStatus(INOUT_PDXGK_CHILD_STATUS ChildStatus, IN_BOOLEAN NonDestructiveOnly) noexcept
 {
     (void) NonDestructiveOnly;
 
@@ -686,7 +686,7 @@ NTSTATUS HyMiniportDevice::QueryChildStatus(INOUT_PDXGK_CHILD_STATUS ChildStatus
     }
 }
 
-NTSTATUS HyMiniportDevice::QueryDeviceDescriptor(IN_ULONG ChildUid, INOUT_PDXGK_DEVICE_DESCRIPTOR DeviceDescriptor) noexcept
+NTSTATUS GsMiniportDevice::QueryDeviceDescriptor(IN_ULONG ChildUid, INOUT_PDXGK_DEVICE_DESCRIPTOR DeviceDescriptor) noexcept
 {
     CHECK_IRQL(PASSIVE_LEVEL);
 
@@ -739,7 +739,7 @@ NTSTATUS HyMiniportDevice::QueryDeviceDescriptor(IN_ULONG ChildUid, INOUT_PDXGK_
 #endif
 }
 
-NTSTATUS HyMiniportDevice::SetPowerState(IN_ULONG DeviceUid, IN_DEVICE_POWER_STATE DevicePowerState, IN_POWER_ACTION ActionType) noexcept
+NTSTATUS GsMiniportDevice::SetPowerState(IN_ULONG DeviceUid, IN_DEVICE_POWER_STATE DevicePowerState, IN_POWER_ACTION ActionType) noexcept
 {
     (void) ActionType;
 
@@ -770,7 +770,7 @@ NTSTATUS HyMiniportDevice::SetPowerState(IN_ULONG DeviceUid, IN_DEVICE_POWER_STA
 
 #pragma code_seg(push)
 #pragma code_seg("_KTEXT")
-void HyMiniportDevice::ResetDevice() noexcept
+void GsMiniportDevice::ResetDevice() noexcept
 {
     const volatile UINT* const resetReg = GetDeviceConfigRegister(REGISTER_RESET);
 
@@ -781,7 +781,7 @@ void HyMiniportDevice::ResetDevice() noexcept
 }
 #pragma code_seg(pop)
 
-NTSTATUS HyMiniportDevice::QueryAdapterInfo(IN_CONST_PDXGKARG_QUERYADAPTERINFO pQueryAdapterInfo) noexcept
+NTSTATUS GsMiniportDevice::QueryAdapterInfo(IN_CONST_PDXGKARG_QUERYADAPTERINFO pQueryAdapterInfo) noexcept
 {
     CHECK_IRQL(PASSIVE_LEVEL);
 
@@ -794,7 +794,7 @@ NTSTATUS HyMiniportDevice::QueryAdapterInfo(IN_CONST_PDXGKARG_QUERYADAPTERINFO p
     }
 }
 
-NTSTATUS HyMiniportDevice::FillUmDriverPrivate(IN_CONST_PDXGKARG_QUERYADAPTERINFO pQueryAdapterInfo) const noexcept
+NTSTATUS GsMiniportDevice::FillUmDriverPrivate(IN_CONST_PDXGKARG_QUERYADAPTERINFO pQueryAdapterInfo) const noexcept
 {
     CHECK_IRQL(PASSIVE_LEVEL);
 
@@ -863,7 +863,7 @@ NTSTATUS HyMiniportDevice::FillUmDriverPrivate(IN_CONST_PDXGKARG_QUERYADAPTERINF
     return STATUS_SUCCESS;
 }
 
-NTSTATUS HyMiniportDevice::FillDriverCaps(IN_CONST_PDXGKARG_QUERYADAPTERINFO pQueryAdapterInfo) const noexcept
+NTSTATUS GsMiniportDevice::FillDriverCaps(IN_CONST_PDXGKARG_QUERYADAPTERINFO pQueryAdapterInfo) const noexcept
 {
     CHECK_IRQL(PASSIVE_LEVEL);
 
@@ -997,7 +997,7 @@ NTSTATUS HyMiniportDevice::FillDriverCaps(IN_CONST_PDXGKARG_QUERYADAPTERINFO pQu
     return STATUS_SUCCESS;
 }
 
-NTSTATUS HyMiniportDevice::FillQuerySegment(IN_CONST_PDXGKARG_QUERYADAPTERINFO pQueryAdapterInfo) const noexcept
+NTSTATUS GsMiniportDevice::FillQuerySegment(IN_CONST_PDXGKARG_QUERYADAPTERINFO pQueryAdapterInfo) const noexcept
 {
     CHECK_IRQL(PASSIVE_LEVEL);
 
@@ -1193,7 +1193,7 @@ NTSTATUS HyMiniportDevice::FillQuerySegment(IN_CONST_PDXGKARG_QUERYADAPTERINFO p
 //     querySegment->PagingBufferSize = 65536; 
 }
 
-NTSTATUS HyMiniportDevice::CollectDbgInfo(IN_CONST_PDXGKARG_COLLECTDBGINFO pCollectDbgInfo) noexcept
+NTSTATUS GsMiniportDevice::CollectDbgInfo(IN_CONST_PDXGKARG_COLLECTDBGINFO pCollectDbgInfo) noexcept
 {
     // This function should collect debug information for various failures and can be
     // called at any time and at high IRQL (that is, the IRQL that DxgkDdiCollectDbgInfo
@@ -1224,7 +1224,7 @@ NTSTATUS HyMiniportDevice::CollectDbgInfo(IN_CONST_PDXGKARG_COLLECTDBGINFO pColl
     return STATUS_SUCCESS;
 }
 
-NTSTATUS HyMiniportDevice::CreateDevice(INOUT_PDXGKARG_CREATEDEVICE pCreateDevice) noexcept
+NTSTATUS GsMiniportDevice::CreateDevice(INOUT_PDXGKARG_CREATEDEVICE pCreateDevice) noexcept
 {
     CHECK_IRQL(PASSIVE_LEVEL);
     LOG_DEBUG(
@@ -1277,7 +1277,7 @@ static void SetPreferredSegment(DXGK_SEGMENTPREFERENCE& PreferredSegment, const 
     }
 }
 
-NTSTATUS HyMiniportDevice::CreateAllocation(INOUT_PDXGKARG_CREATEALLOCATION pCreateAllocation) noexcept
+NTSTATUS GsMiniportDevice::CreateAllocation(INOUT_PDXGKARG_CREATEALLOCATION pCreateAllocation) noexcept
 {
     CHECK_IRQL(PASSIVE_LEVEL);
 
@@ -1548,7 +1548,7 @@ NTSTATUS HyMiniportDevice::CreateAllocation(INOUT_PDXGKARG_CREATEALLOCATION pCre
     return STATUS_SUCCESS;
 }
 
-NTSTATUS HyMiniportDevice::DestroyAllocation(IN_CONST_PDXGKARG_DESTROYALLOCATION pDestroyAllocation) noexcept
+NTSTATUS GsMiniportDevice::DestroyAllocation(IN_CONST_PDXGKARG_DESTROYALLOCATION pDestroyAllocation) noexcept
 {
     CHECK_IRQL(PASSIVE_LEVEL);
 
@@ -1601,7 +1601,7 @@ static NTSTATUS AppendLogVidPn(size_t& currentLength, char*& messageBuffer, size
     return STATUS_SUCCESS;
 }
 
-void HyMiniportDevice::LogVidPn(D3DKMDT_HVIDPN hVidPn) noexcept
+void GsMiniportDevice::LogVidPn(D3DKMDT_HVIDPN hVidPn) noexcept
 {
     const DXGK_VIDPN_INTERFACE* pVidPnInterface;
     NTSTATUS status = m_DxgkInterface.DxgkCbQueryVidPnInterface(hVidPn, DXGK_VIDPN_INTERFACE_VERSION_V1, &pVidPnInterface);
@@ -2017,7 +2017,7 @@ static bool IsSupportedVpnPnPath(const D3DKMDT_VIDPN_PRESENT_PATH* const pVidPnP
 
 // This implementation is largely sourced from https://github.com/microsoft/Windows-driver-samples/blob/main/video/KMDOD/bdd_dmm.cxx#L22
 // Thus it is subject to the Microsoft Public License.
-NTSTATUS HyMiniportDevice::IsSupportedVidPn(INOUT_PDXGKARG_ISSUPPORTEDVIDPN pIsSupportedVidPn) noexcept
+NTSTATUS GsMiniportDevice::IsSupportedVidPn(INOUT_PDXGKARG_ISSUPPORTEDVIDPN pIsSupportedVidPn) noexcept
 {
     CHECK_IRQL(PASSIVE_LEVEL);
 
@@ -2245,7 +2245,7 @@ NTSTATUS HyMiniportDevice::IsSupportedVidPn(INOUT_PDXGKARG_ISSUPPORTEDVIDPN pIsS
     return STATUS_SUCCESS;
 }
 
-NTSTATUS HyMiniportDevice::RecommendFunctionalVidPn(IN_CONST_PDXGKARG_RECOMMENDFUNCTIONALVIDPN_CONST pRecommendFunctionalVidPn) noexcept
+NTSTATUS GsMiniportDevice::RecommendFunctionalVidPn(IN_CONST_PDXGKARG_RECOMMENDFUNCTIONALVIDPN_CONST pRecommendFunctionalVidPn) noexcept
 {
     CHECK_IRQL(PASSIVE_LEVEL);
 
@@ -2256,7 +2256,7 @@ NTSTATUS HyMiniportDevice::RecommendFunctionalVidPn(IN_CONST_PDXGKARG_RECOMMENDF
 
 // This implementation is largely sourced from https://github.com/microsoft/Windows-driver-samples/blob/main/video/KMDOD/bdd_dmm.cxx#L111
 // Thus it is subject to the Microsoft Public License.
-NTSTATUS HyMiniportDevice::EnumVidPnCofuncModality(IN_CONST_PDXGKARG_ENUMVIDPNCOFUNCMODALITY_CONST pEnumCofuncModality) noexcept
+NTSTATUS GsMiniportDevice::EnumVidPnCofuncModality(IN_CONST_PDXGKARG_ENUMVIDPNCOFUNCMODALITY_CONST pEnumCofuncModality) noexcept
 {
     CHECK_IRQL(PASSIVE_LEVEL);
 
@@ -2708,7 +2708,7 @@ NTSTATUS HyMiniportDevice::EnumVidPnCofuncModality(IN_CONST_PDXGKARG_ENUMVIDPNCO
 
 #pragma code_seg(push)
 #pragma code_seg("_KTEXT")
-NTSTATUS HyMiniportDevice::SetVidPnSourceAddress(IN_CONST_PDXGKARG_SETVIDPNSOURCEADDRESS pSetVidPnSourceAddress) noexcept
+NTSTATUS GsMiniportDevice::SetVidPnSourceAddress(IN_CONST_PDXGKARG_SETVIDPNSOURCEADDRESS pSetVidPnSourceAddress) noexcept
 {
     CHECK_IRQL(PASSIVE_LEVEL);
 
@@ -2726,7 +2726,7 @@ NTSTATUS HyMiniportDevice::SetVidPnSourceAddress(IN_CONST_PDXGKARG_SETVIDPNSOURC
 
 // This implementation is largely sourced from https://github.com/microsoft/Windows-driver-samples/blob/main/video/KMDOD/bdd_dmm.cxx#L469
 // Thus it is subject to the Microsoft Public License.
-NTSTATUS HyMiniportDevice::SetVidPnSourceVisibility(IN_CONST_PDXGKARG_SETVIDPNSOURCEVISIBILITY pSetVidPnSourceVisibility) noexcept
+NTSTATUS GsMiniportDevice::SetVidPnSourceVisibility(IN_CONST_PDXGKARG_SETVIDPNSOURCEVISIBILITY pSetVidPnSourceVisibility) noexcept
 {
     CHECK_IRQL(PASSIVE_LEVEL);
 
@@ -2761,7 +2761,7 @@ NTSTATUS HyMiniportDevice::SetVidPnSourceVisibility(IN_CONST_PDXGKARG_SETVIDPNSO
 
 // This implementation is largely sourced from https://github.com/microsoft/Windows-driver-samples/blob/main/video/KMDOD/bdd_dmm.cxx#L500
 // Thus it is subject to the Microsoft Public License.
-NTSTATUS HyMiniportDevice::CommitVidPn(IN_CONST_PDXGKARG_COMMITVIDPN_CONST pCommitVidPn) noexcept
+NTSTATUS GsMiniportDevice::CommitVidPn(IN_CONST_PDXGKARG_COMMITVIDPN_CONST pCommitVidPn) noexcept
 {
     // Check this CommitVidPn is for the mode change notification when monitor is in power off state.
     if(pCommitVidPn->Flags.PathPoweredOff)
@@ -2959,7 +2959,7 @@ NTSTATUS HyMiniportDevice::CommitVidPn(IN_CONST_PDXGKARG_COMMITVIDPN_CONST pComm
 
 // This implementation is largely sourced from https://github.com/microsoft/Windows-driver-samples/blob/main/video/KMDOD/bdd_dmm.cxx#L687
 // Thus it is subject to the Microsoft Public License.
-NTSTATUS HyMiniportDevice::UpdateActiveVidPnPresentPath(IN_CONST_PDXGKARG_UPDATEACTIVEVIDPNPRESENTPATH_CONST pUpdateActiveVidPnPresentPath) noexcept
+NTSTATUS GsMiniportDevice::UpdateActiveVidPnPresentPath(IN_CONST_PDXGKARG_UPDATEACTIVEVIDPNPRESENTPATH_CONST pUpdateActiveVidPnPresentPath) noexcept
 {
     CHECK_IRQL(PASSIVE_LEVEL);
 
@@ -2976,7 +2976,7 @@ NTSTATUS HyMiniportDevice::UpdateActiveVidPnPresentPath(IN_CONST_PDXGKARG_UPDATE
     return STATUS_SUCCESS;
 }
 
-NTSTATUS HyMiniportDevice::RecommendMonitorModes(IN_CONST_PDXGKARG_RECOMMENDMONITORMODES_CONST pRecommendMonitorModes) noexcept
+NTSTATUS GsMiniportDevice::RecommendMonitorModes(IN_CONST_PDXGKARG_RECOMMENDMONITORMODES_CONST pRecommendMonitorModes) noexcept
 {
     CHECK_IRQL(PASSIVE_LEVEL);
     LOG_DEBUG(
@@ -3025,7 +3025,7 @@ NTSTATUS HyMiniportDevice::RecommendMonitorModes(IN_CONST_PDXGKARG_RECOMMENDMONI
     return STATUS_SUCCESS;
 }
 
-NTSTATUS HyMiniportDevice::GetScanLine(INOUT_PDXGKARG_GETSCANLINE pGetScanLine) noexcept
+NTSTATUS GsMiniportDevice::GetScanLine(INOUT_PDXGKARG_GETSCANLINE pGetScanLine) noexcept
 {
     CHECK_IRQL(PASSIVE_LEVEL);
 
@@ -3060,7 +3060,7 @@ static UINT BPPFromPixelFormat(D3DDDIFORMAT Format)
 
 // This implementation is largely sourced from https://github.com/microsoft/Windows-driver-samples/blob/main/video/KMDOD/bdd_dmm.cxx#L444
 // Thus it is subject to the Microsoft Public License.
-NTSTATUS HyMiniportDevice::PresentDisplayOnly(IN_CONST_PDXGKARG_PRESENT_DISPLAYONLY pPresentDisplayOnly) noexcept
+NTSTATUS GsMiniportDevice::PresentDisplayOnly(IN_CONST_PDXGKARG_PRESENT_DISPLAYONLY pPresentDisplayOnly) noexcept
 {
     CHECK_IRQL(PASSIVE_LEVEL);
 
@@ -3076,7 +3076,7 @@ NTSTATUS HyMiniportDevice::PresentDisplayOnly(IN_CONST_PDXGKARG_PRESENT_DISPLAYO
         return STATUS_INVALID_PARAMETER;
     }
 
-    HyDisplayMode& currentMode = m_CurrentDisplayMode[pPresentDisplayOnly->VidPnSourceId];
+    GsDisplayMode& currentMode = m_CurrentDisplayMode[pPresentDisplayOnly->VidPnSourceId];
 
     // If it is in monitor off state or source is not supposed to be visible, don't present anything to the screen
     if(currentMode.PowerState > PowerDeviceD0 || currentMode.Flags.SourceNotVisible)
@@ -3167,7 +3167,7 @@ NTSTATUS HyMiniportDevice::PresentDisplayOnly(IN_CONST_PDXGKARG_PRESENT_DISPLAYO
 }
 #endif
 
-NTSTATUS HyMiniportDevice::StopDeviceAndReleasePostDisplayOwnership(IN_CONST_D3DDDI_VIDEO_PRESENT_TARGET_ID TargetId, PDXGK_DISPLAY_INFORMATION DisplayInfo) noexcept
+NTSTATUS GsMiniportDevice::StopDeviceAndReleasePostDisplayOwnership(IN_CONST_D3DDDI_VIDEO_PRESENT_TARGET_ID TargetId, PDXGK_DISPLAY_INFORMATION DisplayInfo) noexcept
 {
     CHECK_IRQL(PASSIVE_LEVEL);
 
@@ -3181,7 +3181,7 @@ NTSTATUS HyMiniportDevice::StopDeviceAndReleasePostDisplayOwnership(IN_CONST_D3D
     return StopDevice();
 }
 
-NTSTATUS HyMiniportDevice::ControlInterrupt(IN_CONST_DXGK_INTERRUPT_TYPE InterruptType, IN_BOOLEAN EnableInterrupt) noexcept
+NTSTATUS GsMiniportDevice::ControlInterrupt(IN_CONST_DXGK_INTERRUPT_TYPE InterruptType, IN_BOOLEAN EnableInterrupt) noexcept
 {
     CHECK_IRQL(PASSIVE_LEVEL);
 
@@ -3226,7 +3226,7 @@ NTSTATUS HyMiniportDevice::ControlInterrupt(IN_CONST_DXGK_INTERRUPT_TYPE Interru
 // This function cannot be paged.
 // This implementation is largely sourced from https://github.com/microsoft/Windows-driver-samples/blob/main/video/KMDOD/blthw.cxx#L21
 // Thus it is subject to the Microsoft Public License.
-BOOLEAN HyMiniportDevice::SynchronizeVidSchNotifyInterrupt(PVOID Params) noexcept
+BOOLEAN GsMiniportDevice::SynchronizeVidSchNotifyInterrupt(PVOID Params) noexcept
 {
     GsSynchronizeParams* synchronizeParams = reinterpret_cast<GsSynchronizeParams*>(Params);
 
@@ -3247,7 +3247,7 @@ BOOLEAN HyMiniportDevice::SynchronizeVidSchNotifyInterrupt(PVOID Params) noexcep
 // Fakes an interrupt for present progress.
 // This implementation is largely sourced from https://github.com/microsoft/Windows-driver-samples/blob/main/video/KMDOD/blthw.cxx#L395
 // Thus it is subject to the Microsoft Public License.
-void HyMiniportDevice::ReportPresentProgress(D3DDDI_VIDEO_PRESENT_SOURCE_ID VidPnSourceId, BOOLEAN CompletedOrFailed) noexcept
+void GsMiniportDevice::ReportPresentProgress(D3DDDI_VIDEO_PRESENT_SOURCE_ID VidPnSourceId, BOOLEAN CompletedOrFailed) noexcept
 {
     (void) VidPnSourceId;
     (void) CompletedOrFailed;
@@ -3291,7 +3291,7 @@ void HyMiniportDevice::ReportPresentProgress(D3DDDI_VIDEO_PRESENT_SOURCE_ID VidP
 #endif
 }
 
-bool HyMiniportDevice::ObtainLogLock(const bool ReturnOnFailure) noexcept
+bool GsMiniportDevice::ObtainLogLock(const bool ReturnOnFailure) noexcept
 {
     volatile UINT* logLockRegister = GetDeviceConfigRegister(REGISTER_DEBUG_LOG_LOCK);
 
@@ -3324,12 +3324,12 @@ bool HyMiniportDevice::ObtainLogLock(const bool ReturnOnFailure) noexcept
     return false;
 }
 
-void HyMiniportDevice::ReleaseLogLock() noexcept
+void GsMiniportDevice::ReleaseLogLock() noexcept
 {
     *GetDeviceConfigRegister(REGISTER_DEBUG_LOG_LOCK) = VALUE_DEBUG_LOG_LOCK_UNLOCKED;
 }
 
-void HyMiniportDevice::DebugLog(const char* String, const SIZE_T Length, const bool Lock) noexcept
+void GsMiniportDevice::DebugLog(const char* String, const SIZE_T Length, const bool Lock) noexcept
 {
     if(Lock && !ObtainLogLock(false))
     {
@@ -3351,9 +3351,9 @@ void HyMiniportDevice::DebugLog(const char* String, const SIZE_T Length, const b
 
 // This implementation is largely sourced from https://github.com/microsoft/Windows-driver-samples/blob/main/video/KMDOD/bdd_dmm.cxx#L711
 // Thus it is subject to the Microsoft Public License.
-NTSTATUS HyMiniportDevice::SetSourceModeAndPath(const D3DKMDT_VIDPN_SOURCE_MODE* pSourceMode, const D3DKMDT_VIDPN_PRESENT_PATH* pPath) noexcept
+NTSTATUS GsMiniportDevice::SetSourceModeAndPath(const D3DKMDT_VIDPN_SOURCE_MODE* pSourceMode, const D3DKMDT_VIDPN_PRESENT_PATH* pPath) noexcept
 {
-    HyDisplayMode* currentMode = &m_CurrentDisplayMode[pPath->VidPnSourceId];
+    GsDisplayMode* currentMode = &m_CurrentDisplayMode[pPath->VidPnSourceId];
     currentMode->Scaling = pPath->ContentTransformation.Scaling;
     currentMode->SrcModeWidth = pSourceMode->Format.Graphics.PrimSurfSize.cx;
     currentMode->SrcModeHeight = pSourceMode->Format.Graphics.PrimSurfSize.cy;
@@ -3385,7 +3385,7 @@ NTSTATUS HyMiniportDevice::SetSourceModeAndPath(const D3DKMDT_VIDPN_SOURCE_MODE*
 
 // This implementation is largely sourced from https://github.com/microsoft/Windows-driver-samples/blob/main/video/KMDOD/bdd_dmm.cxx#L748
 // Thus it is subject to the Microsoft Public License.
-NTSTATUS HyMiniportDevice::AreVidPnPathFieldsValid(const D3DKMDT_VIDPN_PRESENT_PATH* pPath) const noexcept
+NTSTATUS GsMiniportDevice::AreVidPnPathFieldsValid(const D3DKMDT_VIDPN_PRESENT_PATH* pPath) const noexcept
 {
     if(pPath->VidPnSourceId >= MaxViews)
     {
@@ -3431,7 +3431,7 @@ NTSTATUS HyMiniportDevice::AreVidPnPathFieldsValid(const D3DKMDT_VIDPN_PRESENT_P
 
 // This implementation is largely sourced from https://github.com/microsoft/Windows-driver-samples/blob/main/video/KMDOD/bdd_dmm.cxx#L797
 // Thus it is subject to the Microsoft Public License.
-NTSTATUS HyMiniportDevice::AreVidPnSourceModeFieldsValid(const D3DKMDT_VIDPN_SOURCE_MODE* pSourceMode) const noexcept
+NTSTATUS GsMiniportDevice::AreVidPnSourceModeFieldsValid(const D3DKMDT_VIDPN_SOURCE_MODE* pSourceMode) const noexcept
 {
     if(pSourceMode->Type != D3DKMDT_RMT_GRAPHICS)
     {
@@ -3502,7 +3502,7 @@ EdidTiming mVbeEstablishedEdidTiming[] =
 
 // This implementation is largely sourced from https://github.com/microsoft/Windows-driver-samples/blob/main/video/KMDOD/bdd_dmm.cxx#L845
 // Thus it is subject to the Microsoft Public License.
-NTSTATUS HyMiniportDevice::AddSingleSourceMode(const DXGK_VIDPNSOURCEMODESET_INTERFACE* const pVidPnSourceModeSetInterface, D3DKMDT_HVIDPNSOURCEMODESET hVidPnSourceModeSet, D3DDDI_VIDEO_PRESENT_SOURCE_ID SourceId) noexcept
+NTSTATUS GsMiniportDevice::AddSingleSourceMode(const DXGK_VIDPNSOURCEMODESET_INTERFACE* const pVidPnSourceModeSetInterface, D3DKMDT_HVIDPNSOURCEMODESET hVidPnSourceModeSet, D3DDDI_VIDEO_PRESENT_SOURCE_ID SourceId) noexcept
 {
     // There is only one source format supported by display-only drivers, but more can be added in a 
     // full WDDM driver if the hardware supports them
@@ -3604,7 +3604,7 @@ NTSTATUS HyMiniportDevice::AddSingleSourceMode(const DXGK_VIDPNSOURCEMODESET_INT
 
 // This implementation is largely sourced from https://github.com/microsoft/Windows-driver-samples/blob/main/video/KMDOD/bdd_dmm.cxx#L966
 // Thus it is subject to the Microsoft Public License.
-NTSTATUS HyMiniportDevice::AddSingleTargetMode(const DXGK_VIDPNTARGETMODESET_INTERFACE* const pVidPnTargetModeSetInterface, D3DKMDT_HVIDPNTARGETMODESET hVidPnTargetModeSet, const D3DKMDT_VIDPN_SOURCE_MODE* pVidPnPinnedSourceModeInfo, D3DDDI_VIDEO_PRESENT_SOURCE_ID SourceId) noexcept
+NTSTATUS GsMiniportDevice::AddSingleTargetMode(const DXGK_VIDPNTARGETMODESET_INTERFACE* const pVidPnTargetModeSetInterface, D3DKMDT_HVIDPNTARGETMODESET hVidPnTargetModeSet, const D3DKMDT_VIDPN_SOURCE_MODE* pVidPnPinnedSourceModeInfo, D3DDDI_VIDEO_PRESENT_SOURCE_ID SourceId) noexcept
 {
     (void) pVidPnPinnedSourceModeInfo;
 
@@ -3718,7 +3718,7 @@ static NTSTATUS MapFrameBuffer(PHYSICAL_ADDRESS PhysicalAddress, ULONG Length, v
     return STATUS_SUCCESS;
 }
 
-NTSTATUS HyMiniportDevice::UnmapFrameBuffer(void* const VirtualAddress, const ULONG Length) noexcept
+NTSTATUS GsMiniportDevice::UnmapFrameBuffer(void* const VirtualAddress, const ULONG Length) noexcept
 {
     TRACE_ENTRYPOINT();
 

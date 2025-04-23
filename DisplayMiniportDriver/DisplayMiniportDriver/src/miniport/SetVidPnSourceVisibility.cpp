@@ -29,7 +29,7 @@ NTSTATUS HySetVidPnSourceVisibility(IN_CONST_HANDLE hAdapter, IN_CONST_PDXGKARG_
     }
 
     // Get our context structure.
-    HyMiniportDevice* const deviceContext = HyMiniportDevice::FromHandle(hAdapter);
+    GsMiniportDevice* const deviceContext = GsMiniportDevice::FromHandle(hAdapter);
 
     return deviceContext->SetVidPnSourceVisibility(pSetVidPnSourceVisibility);
 }

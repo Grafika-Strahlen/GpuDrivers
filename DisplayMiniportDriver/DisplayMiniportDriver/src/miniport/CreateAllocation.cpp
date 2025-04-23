@@ -61,7 +61,7 @@ NTSTATUS GsCreateAllocation(
     }
 
     // Get our context structure.
-    HyMiniportDevice* const deviceContext = HyMiniportDevice::FromHandle(hAdapter);
+    GsMiniportDevice* const deviceContext = GsMiniportDevice::FromHandle(hAdapter);
 
     return deviceContext->CreateAllocation(pCreateAllocation);
 }

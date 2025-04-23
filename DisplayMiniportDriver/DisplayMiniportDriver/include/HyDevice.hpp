@@ -10,11 +10,11 @@
 #pragma warning(disable:4201) // anonymous unions warning
 
 // Represents the current mode, may not always be set (i.e. frame buffer mapped) if representing the mode passed in on single mode setups.
-struct HyDisplayMode final
+struct GsDisplayMode final
 {
-    DEFAULT_CONSTRUCT_PU(HyDisplayMode);
-    DEFAULT_DESTRUCT(HyDisplayMode);
-    DELETE_CM(HyDisplayMode);
+    DEFAULT_CONSTRUCT_PU(GsDisplayMode);
+    DEFAULT_DESTRUCT(GsDisplayMode);
+    DELETE_CM(GsDisplayMode);
 public:
     // The source mode currently set for HW Framebuffer.
     // For sample driver this info filled in StartDevice by the OS and never changed.
@@ -53,15 +53,15 @@ public:
     D3DDDI_VIDEO_PRESENT_TARGET_ID VidPnTargetId;
 };
 
-class HyMiniportDevice;
+class GsMiniportDevice;
 
 struct GsSynchronizeParams final
 {
-    HyMiniportDevice* Device;
+    GsMiniportDevice* Device;
     DXGKARGCB_NOTIFY_INTERRUPT_DATA InterruptData;
 };
 
-typedef struct HyPrivateDriverData
+typedef struct GsPrivateDriverData
 {
     static inline constexpr UINT HY_PRIVATE_DRIVER_DATA_MAGIC = 0x48794444;
     static inline constexpr UINT HY_PRIVATE_DRIVER_DATA_CURRENT_VERSION = 1;
@@ -77,10 +77,10 @@ typedef struct HyPrivateDriverData
     ULONGLONG PageSize;
 } HyPrivateDriverData;
 
-class HyMiniportDevice final
+class GsMiniportDevice final
 {
-    DEFAULT_DESTRUCT(HyMiniportDevice);
-    DELETE_CM(HyMiniportDevice);
+    DEFAULT_DESTRUCT(GsMiniportDevice);
+    DELETE_CM(GsMiniportDevice);
 public:
     static inline constexpr bool EnableApertureSegment = true;
 
@@ -134,12 +134,12 @@ public:
     void* operator new(SIZE_T count);
     void operator delete(void* ptr);
 public:
-    static HyMiniportDevice* FromHandle(HANDLE hDevice) noexcept
+    static GsMiniportDevice* FromHandle(HANDLE hDevice) noexcept
     {
-        return static_cast<HyMiniportDevice*>(hDevice);
+        return static_cast<GsMiniportDevice*>(hDevice);
     }
 public:
-    HyMiniportDevice(PDEVICE_OBJECT PhysicalDeviceObject) noexcept;
+    GsMiniportDevice(PDEVICE_OBJECT PhysicalDeviceObject) noexcept;
 
     NTSTATUS GetAdapterInfo() noexcept;
 
@@ -261,7 +261,7 @@ private:
 
     void* m_ConfigRegistersPointer;
 
-    HyDisplayMode m_CurrentDisplayMode[8];
+    GsDisplayMode m_CurrentDisplayMode[8];
 
     // Current adapter power state
     DEVICE_POWER_STATE m_AdapterPowerState;
@@ -271,8 +271,5 @@ private:
     GsPresentManager m_PresentManager;
     GsMemoryManager m_MemoryManager;
 };
-
-// #define HY_MINIPORT_DEVICE_FROM_HANDLE(HANDLE) static_cast<HyMiniportDevice*>(HANDLE)
-#define HY_MINIPORT_DEVICE_FROM_HANDLE(HANDLE) HyMiniportDevice::FromHandle(HANDLE)
 
 #pragma warning(pop)

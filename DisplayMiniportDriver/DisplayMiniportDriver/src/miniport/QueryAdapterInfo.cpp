@@ -30,7 +30,7 @@ NTSTATUS HyQueryAdapterInfo(IN_CONST_HANDLE hAdapter, IN_CONST_PDXGKARG_QUERYADA
 
     LOG_DEBUG("Querying Type %u, Input Size: %u, Output Size %u\n", pQueryAdapterInfo->Type, pQueryAdapterInfo->InputDataSize, pQueryAdapterInfo->OutputDataSize);
 
-    HyMiniportDevice* const deviceContext = HyMiniportDevice::FromHandle(hAdapter);
+    GsMiniportDevice* const deviceContext = GsMiniportDevice::FromHandle(hAdapter);
 
     return deviceContext->QueryAdapterInfo(pQueryAdapterInfo);
 }

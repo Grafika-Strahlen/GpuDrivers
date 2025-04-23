@@ -16,7 +16,7 @@ void HyResetDevice(IN_CONST_PVOID MiniportDeviceContext)
     }
 
     // Get our context structure.
-    HyMiniportDevice* const deviceContext = HyMiniportDevice::FromHandle(MiniportDeviceContext);
+    GsMiniportDevice* const deviceContext = GsMiniportDevice::FromHandle(MiniportDeviceContext);
 
     deviceContext->ResetDevice();
 }

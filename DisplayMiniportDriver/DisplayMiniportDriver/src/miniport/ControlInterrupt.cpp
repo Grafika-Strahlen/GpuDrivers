@@ -24,7 +24,7 @@ NTSTATUS HyControlInterrupt(IN_CONST_HANDLE hAdapter, IN_CONST_DXGK_INTERRUPT_TY
         return STATUS_INVALID_PARAMETER_1;
     }
 
-    HyMiniportDevice* const deviceContext = HyMiniportDevice::FromHandle(hAdapter);
+    GsMiniportDevice* const deviceContext = GsMiniportDevice::FromHandle(hAdapter);
 
     return deviceContext->ControlInterrupt(InterruptType, EnableInterrupt);
 }

@@ -27,7 +27,7 @@ NTSTATUS HyQueryChildStatus(IN_CONST_PVOID MiniportDeviceContext, INOUT_PDXGK_CH
         return STATUS_INVALID_PARAMETER_2;
     }
 
-    HyMiniportDevice* const deviceContext = HyMiniportDevice::FromHandle(MiniportDeviceContext);
+    GsMiniportDevice* const deviceContext = GsMiniportDevice::FromHandle(MiniportDeviceContext);
 
     return deviceContext->QueryChildStatus(ChildStatus, NonDestructiveOnly);
 }

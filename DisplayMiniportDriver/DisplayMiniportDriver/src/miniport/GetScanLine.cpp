@@ -23,7 +23,7 @@ NTSTATUS HyGetScanLine(IN_CONST_HANDLE hAdapter, INOUT_PDXGKARG_GETSCANLINE pGet
         return STATUS_INVALID_PARAMETER_1;
     }
 
-    HyMiniportDevice* const deviceContext = HyMiniportDevice::FromHandle(hAdapter);
+    GsMiniportDevice* const deviceContext = GsMiniportDevice::FromHandle(hAdapter);
 
     return deviceContext->GetScanLine(pGetScanLine);
 }

@@ -28,7 +28,7 @@ NTSTATUS HyRecommendFunctionalVidPn(IN_CONST_HANDLE hAdapter, IN_CONST_PDXGKARG_
         return STATUS_INVALID_PARAMETER_2;
     }
 
-    HyMiniportDevice* const deviceContext = HyMiniportDevice::FromHandle(hAdapter);
+    GsMiniportDevice* const deviceContext = GsMiniportDevice::FromHandle(hAdapter);
 
     return deviceContext->RecommendFunctionalVidPn(pRecommendFunctionalVidPn);
 }

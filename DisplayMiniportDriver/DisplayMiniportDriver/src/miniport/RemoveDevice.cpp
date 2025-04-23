@@ -16,11 +16,11 @@ NTSTATUS HyRemoveDevice(IN_CONST_PVOID MiniportDeviceContext)
     if(MiniportDeviceContext)
     {
         // Get our context structure.
-        HyMiniportDevice* deviceContext = HyMiniportDevice::FromHandle(MiniportDeviceContext);
+        GsMiniportDevice* deviceContext = GsMiniportDevice::FromHandle(MiniportDeviceContext);
 
         LOG_DEBUG("Freeing MiniportDeviceContext.\n");
 
-        deviceContext->~HyMiniportDevice();
+        deviceContext->~GsMiniportDevice();
 
         // Free the context.
         // HY_FREE(deviceContext, POOL_TAG_DEVICE_CONTEXT);

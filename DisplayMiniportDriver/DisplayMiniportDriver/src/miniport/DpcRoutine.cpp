@@ -24,7 +24,7 @@ void HyDpcRoutine(IN_CONST_PVOID MiniportDeviceContext)
         return;
     }
 
-    HyMiniportDevice* const deviceContext = HyMiniportDevice::FromHandle(MiniportDeviceContext);
+    GsMiniportDevice* const deviceContext = GsMiniportDevice::FromHandle(MiniportDeviceContext);
 
     deviceContext->DpcRoutine();
 }

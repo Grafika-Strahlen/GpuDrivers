@@ -29,7 +29,7 @@ NTSTATUS HyAddDevice(IN_CONST_PDEVICE_OBJECT PhysicalDeviceObject, OUT_PPVOID Mi
     }
 
     // Allocate a new object to represent our device context.
-    HyMiniportDevice* const deviceContext = new HyMiniportDevice(PhysicalDeviceObject);
+    GsMiniportDevice* const deviceContext = new GsMiniportDevice(PhysicalDeviceObject);
 
     // If allocation failed inform the kernel.
     if(!deviceContext)

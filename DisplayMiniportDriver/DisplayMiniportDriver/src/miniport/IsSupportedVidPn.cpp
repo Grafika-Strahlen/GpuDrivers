@@ -29,7 +29,7 @@ NTSTATUS HyIsSupportedVidPn(IN_CONST_HANDLE hAdapter, INOUT_PDXGKARG_ISSUPPORTED
     }
 
     // Get our context structure.
-    HyMiniportDevice* const deviceContext = HyMiniportDevice::FromHandle(hAdapter);
+    GsMiniportDevice* const deviceContext = GsMiniportDevice::FromHandle(hAdapter);
 
     const NTSTATUS status = deviceContext->IsSupportedVidPn(pIsSupportedVidPn);
 

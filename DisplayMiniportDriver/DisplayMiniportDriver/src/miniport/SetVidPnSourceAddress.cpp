@@ -29,7 +29,7 @@ NTSTATUS GsSetVidPnSourceAddress(IN_CONST_HANDLE hAdapter, IN_CONST_PDXGKARG_SET
     }
 
     // Get our context structure.
-    HyMiniportDevice* const deviceContext = HyMiniportDevice::FromHandle(hAdapter);
+    GsMiniportDevice* const deviceContext = GsMiniportDevice::FromHandle(hAdapter);
 
     return deviceContext->SetVidPnSourceAddress(pSetVidPnSourceAddress);
 }
