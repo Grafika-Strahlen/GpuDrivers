@@ -107,4 +107,6 @@ private:
 
     GsDepthStencilState10* m_DepthStencilState;
     UINT m_StencilRef;
+
+    GsDeviceContext10 m_DeviceContext;
 };

@@ -123,6 +123,9 @@
     <ClCompile Include="src\FormatWindowsError.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\d3d10\GsDeviceContext10.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\d3d9\GetCaps9.hpp">
@@ -240,6 +243,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\FormatWindowsError.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\d3d10\GsDeviceContext10.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

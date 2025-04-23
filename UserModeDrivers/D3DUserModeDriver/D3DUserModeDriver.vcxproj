@@ -298,6 +298,7 @@
     <ClCompile Include="src\d3d10\GsBlendState10.cpp" />
     <ClCompile Include="src\d3d10\GsDepthStencilState10.cpp" />
     <ClCompile Include="src\d3d10\GsDevice10.cpp" />
+    <ClCompile Include="src\d3d10\GsDeviceContext10.cpp" />
     <ClCompile Include="src\d3d10\GsResource10.cpp" />
     <ClCompile Include="src\d3d9\CloseAdapter9.cpp" />
     <ClCompile Include="src\d3d9\CreateDevice9.cpp" />
@@ -336,6 +337,7 @@
     <ClInclude Include="include\d3d10\GsAdapter10.hpp" />
     <ClInclude Include="include\d3d10\GsBlendState10.hpp" />
     <ClInclude Include="include\d3d10\GsDepthStencilState10.hpp" />
+    <ClInclude Include="include\d3d10\GsDeviceContext10.hpp" />
     <ClInclude Include="include\d3d10\GsResource10.hpp" />
     <ClInclude Include="include\d3d9\CloseAdapter9.hpp" />
     <ClInclude Include="include\d3d9\CreateDevice9.hpp" />
