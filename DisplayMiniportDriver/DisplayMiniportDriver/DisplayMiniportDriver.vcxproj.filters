@@ -24,67 +24,67 @@
     </Inf>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Full3DDriver.cpp">
+    <ClCompile Include="src\entry\Full3DDriver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\AddDevice.cpp">
+    <ClCompile Include="src\miniport\AddDevice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\RemoveDevice.cpp">
+    <ClCompile Include="src\miniport\RemoveDevice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\MemoryAllocator.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\StartDevice.cpp">
+    <ClCompile Include="src\miniport\StartDevice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\FilterUnload.c">
+    <ClCompile Include="src\comms\FilterUnload.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\FilterInstanceQueryTeardown.c">
+    <ClCompile Include="src\comms\FilterInstanceQueryTeardown.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\FilterInstanceSetup.c">
+    <ClCompile Include="src\comms\FilterInstanceSetup.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\FilterConnectNotify.c">
+    <ClCompile Include="src\comms\FilterConnectNotify.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\FilterDeviceManager.c">
+    <ClCompile Include="src\comms\FilterDeviceManager.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\FilterDisconnectNotify.c">
+    <ClCompile Include="src\comms\FilterDisconnectNotify.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\FilterMessageNotify.c">
+    <ClCompile Include="src\comms\FilterMessageNotify.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\DeviceComms.cpp">
+    <ClCompile Include="src\comms\DeviceComms.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\StopDevice.cpp">
+    <ClCompile Include="src\miniport\StopDevice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\QueryAdapterInfo.cpp">
+    <ClCompile Include="src\miniport\QueryAdapterInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\StopDeviceAndReleasePostDisplayOwnership.cpp">
+    <ClCompile Include="src\miniport\StopDeviceAndReleasePostDisplayOwnership.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\SetPowerState.cpp">
+    <ClCompile Include="src\miniport\SetPowerState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\SetVidPnSourceVisibility.cpp">
+    <ClCompile Include="src\miniport\SetVidPnSourceVisibility.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Logging.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ResetDevice.cpp">
+    <ClCompile Include="src\miniport\ResetDevice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\QueryInterface.cpp">
+    <ClCompile Include="src\miniport\QueryInterface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\I2CInterface.c">
@@ -93,34 +93,34 @@
     <ClCompile Include="src\Guids.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\DispatchIoRequest.cpp">
+    <ClCompile Include="src\miniport\DispatchIoRequest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\InterruptRoutine.cpp">
+    <ClCompile Include="src\miniport\InterruptRoutine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\DpcRoutine.cpp">
+    <ClCompile Include="src\miniport\DpcRoutine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\QueryChildRelations.cpp">
+    <ClCompile Include="src\miniport\QueryChildRelations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\QueryChildStatus.cpp">
+    <ClCompile Include="src\miniport\QueryChildStatus.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\QueryDeviceDescriptor.cpp">
+    <ClCompile Include="src\miniport\QueryDeviceDescriptor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\NotifyAcpiEvent.cpp">
+    <ClCompile Include="src\miniport\NotifyAcpiEvent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ControlEtwLogging.cpp">
+    <ClCompile Include="src\miniport\ControlEtwLogging.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\IsSupportedVidPn.cpp">
+    <ClCompile Include="src\miniport\IsSupportedVidPn.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\PresentDisplayOnly.cpp">
+    <ClCompile Include="src\miniport\PresentDisplayOnly.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\HyDevice.cpp">
@@ -129,31 +129,31 @@
     <ClCompile Include="src\RegisterMemCopy.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\RecommendFunctionalVidPn.cpp">
+    <ClCompile Include="src\miniport\RecommendFunctionalVidPn.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\EnumVidPnCofuncModality.cpp">
+    <ClCompile Include="src\miniport\EnumVidPnCofuncModality.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\CommitVidPn.cpp">
+    <ClCompile Include="src\miniport\CommitVidPn.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\UpdateActiveVidPnPresentPath.cpp">
+    <ClCompile Include="src\miniport\UpdateActiveVidPnPresentPath.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\BlockTransfer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\DevThunks.cpp">
+    <ClCompile Include="src\miniport\DevThunks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ControlInterrupt.cpp">
+    <ClCompile Include="src\miniport\ControlInterrupt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\CollectDbgInfo.cpp">
+    <ClCompile Include="src\miniport\CollectDbgInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GetScanLine.cpp">
+    <ClCompile Include="src\miniport\GetScanLine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\GsPresentManager.cpp">
@@ -168,46 +168,46 @@
     <ClCompile Include="src\GsLogicalDevice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\CreateDevice.cpp">
+    <ClCompile Include="src\miniport\CreateDevice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\DestroyDevice.cpp">
+    <ClCompile Include="src\miniport\DestroyDevice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\RecommendMonitorModes.cpp">
+    <ClCompile Include="src\miniport\RecommendMonitorModes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\CreateContext.cpp">
+    <ClCompile Include="src\miniport\CreateContext.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\DestroyContext.cpp">
+    <ClCompile Include="src\miniport\DestroyContext.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\GsGraphicsContext.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\SetVidPnSourceAddress.cpp">
+    <ClCompile Include="src\miniport\SetVidPnSourceAddress.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\CreateAllocation.cpp">
+    <ClCompile Include="src\miniport\CreateAllocation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\OpenAllocation.cpp">
+    <ClCompile Include="src\miniport\OpenAllocation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\CloseAllocation.cpp">
+    <ClCompile Include="src\miniport\CloseAllocation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\DestroyAllocation.cpp">
+    <ClCompile Include="src\miniport\DestroyAllocation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\DisplayOnlyDriver.cpp">
+    <ClCompile Include="src\entry\DisplayOnlyDriver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ResilientDisplayOnlyDriver.cpp">
+    <ClCompile Include="src\entry\ResilientDisplayOnlyDriver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\DriverEntry.cpp">
+    <ClCompile Include="src\entry\DriverEntry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -224,34 +224,34 @@
     <ClInclude Include="include\StartDevice.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\FilterUnload.h">
+    <ClInclude Include="include\comms\FilterUnload.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\FilterInstanceQueryTeardown.h">
+    <ClInclude Include="include\comms\FilterInstanceQueryTeardown.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\FilterInstanceSetup.h">
+    <ClInclude Include="include\comms\FilterInstanceSetup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\FilterConnectNotify.h">
+    <ClInclude Include="include\comms\FilterConnectNotify.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\FilterDeviceManager.h">
+    <ClInclude Include="include\comms\FilterDeviceManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\FilterDisconnectNotify.h">
+    <ClInclude Include="include\comms\FilterDisconnectNotify.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\FilterMessageNotify.h">
+    <ClInclude Include="include\comms\FilterMessageNotify.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\DeviceComms.hpp">
+    <ClInclude Include="include\comms\DeviceComms.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\StopDevice.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\comms\MessageType.h">
+    <ClInclude Include="include\shared\MessageType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\QueryAdapterInfo.hpp">

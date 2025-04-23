@@ -11,14 +11,14 @@ extern "C" {
 } /* extern "C" */
 #endif
 
-#include "DeviceComms.hpp"
+#include "comms/DeviceComms.hpp"
 
 #pragma code_seg(push)
 #pragma code_seg("INIT")
 #ifdef __cplusplus
 extern "C" {
 #endif
-    DRIVER_INITIALIZE DriverEntry;
+DRIVER_INITIALIZE DriverEntry;
 #ifdef __cplusplus
 } /* extern "C" */
 #endif
@@ -41,7 +41,7 @@ struct DriverConfig final
     EDriverType DriverType;
 };
 
-// Is this the fastest method? Probably, any "optimization" you do just prevents the compiler from automatically generating the popcnt instruction.
+// Is this the fastest method? Probably; any "optimization" you do just prevents the compiler from automatically generating the popcnt instruction.
 // https://www.youtube.com/watch?v=bSkpMdDe4g4
 constexpr static UINT PopCount(UINT Value) noexcept
 {
@@ -325,4 +325,3 @@ _Use_decl_annotations_ NTSTATUS DriverEntry(IN PDRIVER_OBJECT DriverObject, IN P
 #ifdef __cplusplus
 } /* extern "C" */
 #endif
-

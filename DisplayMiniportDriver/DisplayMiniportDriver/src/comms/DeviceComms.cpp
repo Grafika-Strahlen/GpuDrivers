@@ -9,17 +9,17 @@ extern "C" {
 } /* extern "C" */
 #endif
 
-#include "DeviceComms.hpp"
+#include "comms/DeviceComms.hpp"
 #ifdef __cplusplus
 extern "C" {
 #endif
-#include "FilterDeviceManager.h"
-#include "FilterUnload.h"
-#include "FilterInstanceSetup.h"
-#include "FilterInstanceQueryTeardown.h"
-#include "FilterConnectNotify.h"
-#include "FilterDisconnectNotify.h"
-#include "FilterMessageNotify.h"
+#include "comms/FilterDeviceManager.h"
+#include "comms/FilterUnload.h"
+#include "comms/FilterInstanceSetup.h"
+#include "comms/FilterInstanceQueryTeardown.h"
+#include "comms/FilterConnectNotify.h"
+#include "comms/FilterDisconnectNotify.h"
+#include "comms/FilterMessageNotify.h"
 #ifdef __cplusplus
 } /* extern "C" */
 #endif

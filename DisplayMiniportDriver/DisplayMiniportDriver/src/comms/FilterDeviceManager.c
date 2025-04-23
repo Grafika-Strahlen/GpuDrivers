@@ -1,7 +1,7 @@
 // #include <ntddk.h>
 #include <fltKernel.h>
 
-#include "FilterDeviceManager.h"
+#include "comms/FilterDeviceManager.h"
 #include "Logging.h"
 
 #pragma warning(push)

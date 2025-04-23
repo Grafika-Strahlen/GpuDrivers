@@ -2,8 +2,8 @@
 // #include <ntddk.h>
 #include <fltKernel.h>
 
-#include "FilterConnectNotify.h"
-#include "FilterDeviceManager.h"
+#include "comms/FilterConnectNotify.h"
+#include "comms/FilterDeviceManager.h"
 #include "Logging.h"
 
 #pragma code_seg("PAGE")

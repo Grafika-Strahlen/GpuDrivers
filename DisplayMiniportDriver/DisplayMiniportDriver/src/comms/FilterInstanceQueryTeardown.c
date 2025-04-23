@@ -2,7 +2,7 @@
 // #include <ntddk.h>
 #include <fltKernel.h>
 
-#include "FilterInstanceQueryTeardown.h"
+#include "comms/FilterInstanceQueryTeardown.h"
 #include "Logging.h"
 
 #pragma code_seg("PAGE")
