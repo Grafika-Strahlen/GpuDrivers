@@ -1,10 +1,7 @@
 // See https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/dispmprt/nc-dispmprt-dxgkddi_start_device
 #include "Common.h"
-
-#include "StartDevice.hpp"
+#include "miniport/StartDevice.hpp"
 #include "HyDevice.hpp"
-#include "Logging.h"
-#include "MemoryAllocator.h"
 
 #pragma code_seg("PAGE")
 

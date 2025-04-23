@@ -1,9 +1,7 @@
 // See https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/dispmprt/nc-dispmprt-dxgkddi_query_device_descriptor
 #include "Common.h"
-#include "QueryDeviceDescriptor.hpp"
+#include "miniport/QueryDeviceDescriptor.hpp"
 #include "HyDevice.hpp"
-#include "Logging.h"
-#include "RegisterMemCopy.h"
 
 #pragma code_seg("PAGE")
 

@@ -215,13 +215,13 @@
     <ClInclude Include="include\MemoryAllocator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\AddDevice.hpp">
+    <ClInclude Include="include\miniport\AddDevice.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\RemoveDevice.hpp">
+    <ClInclude Include="include\miniport\RemoveDevice.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\StartDevice.hpp">
+    <ClInclude Include="include\miniport\StartDevice.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\comms\FilterUnload.h">
@@ -248,70 +248,70 @@
     <ClInclude Include="include\comms\DeviceComms.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\StopDevice.hpp">
+    <ClInclude Include="include\miniport\StopDevice.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\shared\MessageType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\QueryAdapterInfo.hpp">
+    <ClInclude Include="include\miniport\QueryAdapterInfo.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\StopDeviceAndReleasePostDisplayOwnership.hpp">
+    <ClInclude Include="include\miniport\StopDeviceAndReleasePostDisplayOwnership.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\SetPowerState.hpp">
+    <ClInclude Include="include\miniport\SetPowerState.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\SetVidPnSourceVisibility.hpp">
+    <ClInclude Include="include\miniport\SetVidPnSourceVisibility.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Logging.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\ResetDevice.hpp">
+    <ClInclude Include="include\miniport\ResetDevice.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\QueryInterface.hpp">
+    <ClInclude Include="include\miniport\QueryInterface.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\I2CInterface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\DispatchIoRequest.hpp">
+    <ClInclude Include="include\miniport\DispatchIoRequest.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\InterruptRoutine.hpp">
+    <ClInclude Include="include\miniport\InterruptRoutine.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\DpcRoutine.hpp">
+    <ClInclude Include="include\miniport\DpcRoutine.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\QueryChildRelations.hpp">
+    <ClInclude Include="include\miniport\QueryChildRelations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\QueryChildStatus.hpp">
+    <ClInclude Include="include\miniport\QueryChildStatus.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\QueryDeviceDescriptor.hpp">
+    <ClInclude Include="include\miniport\QueryDeviceDescriptor.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\NotifyAcpiEvent.hpp">
+    <ClInclude Include="include\miniport\NotifyAcpiEvent.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\ControlEtwLogging.hpp">
+    <ClInclude Include="include\miniport\ControlEtwLogging.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\RegisterMemCopy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\IsSupportedVidPn.hpp">
+    <ClInclude Include="include\miniport\IsSupportedVidPn.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\PresentDisplayOnly.hpp">
+    <ClInclude Include="include\miniport\PresentDisplayOnly.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Objects.hpp">
@@ -320,34 +320,34 @@
     <ClInclude Include="include\HyDevice.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\EnumVidPnCofuncModality.hpp">
+    <ClInclude Include="include\miniport\EnumVidPnCofuncModality.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\RecommendFunctionalVidPn.hpp">
+    <ClInclude Include="include\miniport\RecommendFunctionalVidPn.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Common.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\CommitVidPn.hpp">
+    <ClInclude Include="include\miniport\CommitVidPn.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\UpdateActiveVidPnPresentPath.hpp">
+    <ClInclude Include="include\miniport\UpdateActiveVidPnPresentPath.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\BlockTransfer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\DevThunks.hpp">
+    <ClInclude Include="include\miniport\DevThunks.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\ControlInterrupt.hpp">
+    <ClInclude Include="include\miniport\ControlInterrupt.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\CollectDbgInfo.hpp">
+    <ClInclude Include="include\miniport\CollectDbgInfo.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\GetScanLine.hpp">
+    <ClInclude Include="include\miniport\GetScanLine.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\D3DPolyFills.h">
@@ -368,10 +368,10 @@
     <ClInclude Include="include\GsLogicalDevice.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\CreateDevice.hpp">
+    <ClInclude Include="include\miniport\CreateDevice.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\DestroyDevice.hpp">
+    <ClInclude Include="include\miniport\DestroyDevice.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\DriverVersion.h">
@@ -386,22 +386,22 @@
     <ClInclude Include="DriverVersionNumbers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\RecommendMonitorModes.hpp">
+    <ClInclude Include="include\miniport\RecommendMonitorModes.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\CreateContext.hpp">
+    <ClInclude Include="include\miniport\CreateContext.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\DestroyContext.hpp">
+    <ClInclude Include="include\miniport\DestroyContext.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\GsGraphicsContext.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\SetVidPnSourceAddress.hpp">
+    <ClInclude Include="include\miniport\SetVidPnSourceAddress.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\CreateAllocation.hpp">
+    <ClInclude Include="include\miniport\CreateAllocation.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\shared\CreateAllocationDriverData.hpp">
@@ -410,13 +410,13 @@
     <ClInclude Include="include\shared\DriverDataIdentifiers.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\OpenAllocation.hpp">
+    <ClInclude Include="include\miniport\OpenAllocation.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\CloseAllocation.hpp">
+    <ClInclude Include="include\miniport\CloseAllocation.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\DestroyAllocation.hpp">
+    <ClInclude Include="include\miniport\DestroyAllocation.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

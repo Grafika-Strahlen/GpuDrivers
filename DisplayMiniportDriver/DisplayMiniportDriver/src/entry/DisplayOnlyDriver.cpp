@@ -10,44 +10,44 @@
 #define HY_BUILD_AS_KMDOD 1
 #include "Common.h"
 
-#include "AddDevice.hpp"
-#include "StartDevice.hpp"
-#include "StopDevice.hpp"
-#include "RemoveDevice.hpp"
-#include "DispatchIoRequest.hpp"
-#include "InterruptRoutine.hpp"
-#include "DpcRoutine.hpp"
-#include "QueryChildRelations.hpp"
-#include "QueryChildStatus.hpp"
-#include "QueryDeviceDescriptor.hpp"
-#include "SetPowerState.hpp"
-#include "NotifyAcpiEvent.hpp"
-#include "ResetDevice.hpp"
-#include "QueryInterface.hpp"
-#include "ControlEtwLogging.hpp"
-#include "QueryAdapterInfo.hpp"
+#include "miniport/AddDevice.hpp"
+#include "miniport/StartDevice.hpp"
+#include "miniport/StopDevice.hpp"
+#include "miniport/RemoveDevice.hpp"
+#include "miniport/DispatchIoRequest.hpp"
+#include "miniport/InterruptRoutine.hpp"
+#include "miniport/DpcRoutine.hpp"
+#include "miniport/QueryChildRelations.hpp"
+#include "miniport/QueryChildStatus.hpp"
+#include "miniport/QueryDeviceDescriptor.hpp"
+#include "miniport/SetPowerState.hpp"
+#include "miniport/NotifyAcpiEvent.hpp"
+#include "miniport/ResetDevice.hpp"
+#include "miniport/QueryInterface.hpp"
+#include "miniport/ControlEtwLogging.hpp"
+#include "miniport/QueryAdapterInfo.hpp"
 
-#include "CollectDbgInfo.hpp"
-#include "IsSupportedVidPn.hpp"
-#include "RecommendFunctionalVidPn.hpp"
-#include "EnumVidPnCofuncModality.hpp"
+#include "miniport/CollectDbgInfo.hpp"
+#include "miniport/IsSupportedVidPn.hpp"
+#include "miniport/RecommendFunctionalVidPn.hpp"
+#include "miniport/EnumVidPnCofuncModality.hpp"
 
-#include "SetVidPnSourceVisibility.hpp"
+#include "miniport/SetVidPnSourceVisibility.hpp"
 
-#include "CommitVidPn.hpp"
-#include "UpdateActiveVidPnPresentPath.hpp"
-#include "RecommendMonitorModes.hpp"
-#include "GetScanLine.hpp"
+#include "miniport/CommitVidPn.hpp"
+#include "miniport/UpdateActiveVidPnPresentPath.hpp"
+#include "miniport/RecommendMonitorModes.hpp"
+#include "miniport/GetScanLine.hpp"
 
 #if HY_BUILD_AS_KMDOD
-#include "PresentDisplayOnly.hpp"
+#include "miniport/PresentDisplayOnly.hpp"
 #endif
 
-#include "ControlInterrupt.hpp"
+#include "miniport/ControlInterrupt.hpp"
 
-#include "StopDeviceAndReleasePostDisplayOwnership.hpp"
+#include "miniport/StopDeviceAndReleasePostDisplayOwnership.hpp"
 
-#include "DevThunks.hpp"
+#include "miniport/DevThunks.hpp"
 
 NTSTATUS DdiNoOpNTSTATUS();  // NOLINT(clang-diagnostic-strict-prototypes)
 void DdiNoOpVoid();  // NOLINT(clang-diagnostic-strict-prototypes)

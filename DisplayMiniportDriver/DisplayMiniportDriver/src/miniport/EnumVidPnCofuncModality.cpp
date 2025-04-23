@@ -1,6 +1,6 @@
 // See https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/d3dkmddi/nc-d3dkmddi-dxgkddi_enumvidpncofuncmodality
 #include "Common.h"
-#include "EnumVidPnCofuncModality.hpp"
+#include "miniport/EnumVidPnCofuncModality.hpp"
 #include "HyDevice.hpp"
 
 #pragma code_seg("PAGE")

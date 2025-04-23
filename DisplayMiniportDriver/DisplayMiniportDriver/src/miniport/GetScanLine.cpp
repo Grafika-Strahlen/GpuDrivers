@@ -1,9 +1,8 @@
 // See https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/d3dkmddi/nc-d3dkmddi-dxgkddi_getscanline
 // See https://learn.microsoft.com/en-us/windows-hardware/drivers/display/saving-energy-with-vsync-control#display-only-vsync-requirements-for-windows-8-and-later-versions
 #include "Common.h"
-#include "GetScanLine.hpp"
+#include "miniport/GetScanLine.hpp"
 #include "HyDevice.hpp"
-#include "Logging.h"
 
 #pragma code_seg("PAGE")
 

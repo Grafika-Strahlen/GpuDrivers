@@ -1,8 +1,7 @@
 // See https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/d3dkmddi/nc-d3dkmddi-dxgkddi_presentdisplayonly
 #include "Common.h"
+#include "miniport/PresentDisplayOnly.hpp"
 #include "HyDevice.hpp"
-#include "PresentDisplayOnly.hpp"
-#include "Logging.h"
 
 #pragma code_seg("PAGE")
 

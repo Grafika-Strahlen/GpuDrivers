@@ -1,8 +1,7 @@
 // See https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/d3dkmddi/nc-d3dkmddi-dxgkddi_closeallocation
 #include "Common.h"
+#include "miniport/CloseAllocation.hpp"
 #include "GsLogicalDevice.hpp"
-#include "CloseAllocation.hpp"
-#include "Logging.h"
 
 #pragma code_seg("PAGE")
 

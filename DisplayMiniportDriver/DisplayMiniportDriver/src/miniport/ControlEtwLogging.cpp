@@ -1,8 +1,7 @@
 // See https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/dispmprt/nc-dispmprt-dxgkddi_control_etw_logging
 
 #include "Common.h"
-#include "ControlEtwLogging.hpp"
-#include "Logging.h"
+#include "miniport/ControlEtwLogging.hpp"
 
 #pragma code_seg("PAGE")
 

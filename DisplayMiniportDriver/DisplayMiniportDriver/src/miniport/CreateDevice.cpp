@@ -1,8 +1,7 @@
 // See https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/d3dkmddi/nc-d3dkmddi-dxgkddi_createdevice
 #include "Common.h"
+#include "miniport/CreateDevice.hpp"
 #include "HyDevice.hpp"
-#include "CreateDevice.hpp"
-#include "Logging.h"
 
 #pragma code_seg("PAGE")
 

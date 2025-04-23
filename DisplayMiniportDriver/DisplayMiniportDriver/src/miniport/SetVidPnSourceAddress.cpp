@@ -1,8 +1,7 @@
 // See https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/d3dkmddi/nc-d3dkmddi-dxgkddi_setvidpnsourceaddress
 #include "Common.h"
+#include "miniport/SetVidPnSourceAddress.hpp"
 #include "HyDevice.hpp"
-#include "SetVidPnSourceAddress.hpp"
-#include "Logging.h"
 
 #pragma code_seg("_KTEXT")
 

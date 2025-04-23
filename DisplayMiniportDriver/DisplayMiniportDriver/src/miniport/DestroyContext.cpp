@@ -1,8 +1,7 @@
 // See https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/d3dkmddi/nc-d3dkmddi-dxgkddi_destroycontext
 #include "Common.h"
-#include "DestroyContext.hpp"
+#include "miniport/DestroyContext.hpp"
 #include "GsLogicalDevice.hpp"
-#include "Logging.h"
 
 #pragma code_seg("PAGE")
 

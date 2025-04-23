@@ -1,8 +1,7 @@
 // See https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/d3dkmddi/nc-d3dkmddi-dxgkddi_commitvidpn
 #include "Common.h"
+#include "miniport/CommitVidPn.hpp"
 #include "HyDevice.hpp"
-#include "CommitVidPn.hpp"
-#include "Logging.h"
 
 #pragma code_seg("PAGE")
 

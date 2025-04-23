@@ -1,8 +1,6 @@
 // See https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/dispmprt/nc-dispmprt-dxgkddi_dispatch_io_request
-
 #include "Common.h"
-#include "DispatchIoRequest.hpp"
-#include "Logging.h"
+#include "miniport/DispatchIoRequest.hpp"
 
 NTSTATUS HyDispatchIoRequest(IN_CONST_PVOID MiniportDeviceContext, IN_ULONG VidPnSourceId, IN_PVIDEO_REQUEST_PACKET VideoRequestPacket)
 {

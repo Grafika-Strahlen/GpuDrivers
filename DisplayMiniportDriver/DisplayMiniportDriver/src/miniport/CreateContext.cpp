@@ -1,8 +1,7 @@
 // See https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/d3dkmddi/nc-d3dkmddi-dxgkddi_createcontext
 #include "Common.h"
+#include "miniport/CreateContext.hpp"
 #include "GsLogicalDevice.hpp"
-#include "CreateContext.hpp"
-#include "Logging.h"
 
 #pragma code_seg("PAGE")
 

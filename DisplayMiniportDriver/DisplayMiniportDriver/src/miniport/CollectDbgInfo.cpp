@@ -1,9 +1,8 @@
 // See https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/d3dkmddi/nc-d3dkmddi-dxgkddi_collectdbginfo
 // See https://learn.microsoft.com/en-us/windows-hardware/drivers/display/threading-and-synchronization-zero-level
 #include "Common.h"
-#include "CollectDbgInfo.hpp"
+#include "miniport/CollectDbgInfo.hpp"
 #include "HyDevice.hpp"
-#include "Logging.h"
 
 #pragma code_seg("PAGE")
 

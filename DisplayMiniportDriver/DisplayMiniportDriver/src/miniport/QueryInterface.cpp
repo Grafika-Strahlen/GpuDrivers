@@ -1,8 +1,7 @@
 // See https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/dispmprt/nc-dispmprt-dxgkddi_query_interface
 // ReSharper disable CppParameterMayBeConstPtrOrRef
 #include "Common.h"
-#include "QueryInterface.hpp"
-#include "Logging.h"
+#include "miniport/QueryInterface.hpp"
 
 #include "I2CInterface.h"
 

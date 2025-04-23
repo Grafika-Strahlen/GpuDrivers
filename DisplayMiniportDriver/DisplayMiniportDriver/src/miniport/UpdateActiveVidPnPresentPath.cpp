@@ -1,6 +1,6 @@
 // See https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/d3dkmddi/nc-d3dkmddi-dxgkddi_updateactivevidpnpresentpath
 #include "Common.h"
-#include "UpdateActiveVidPnPresentPath.hpp"
+#include "miniport/UpdateActiveVidPnPresentPath.hpp"
 #include "HyDevice.hpp"
 
 NTSTATUS HyUpdateActiveVidPnPresentPath(IN_CONST_HANDLE hAdapter, IN_CONST_PDXGKARG_UPDATEACTIVEVIDPNPRESENTPATH_CONST pUpdateActiveVidPnPresentPath)

@@ -1,8 +1,7 @@
 // See https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/d3dkmddi/nc-d3dkmddi-dxgkddi_destroydevice
 #include "Common.h"
-#include "DestroyDevice.hpp"
+#include "miniport/DestroyDevice.hpp"
 #include "GsLogicalDevice.hpp"
-#include "Logging.h"
 
 #pragma code_seg("PAGE")
 

@@ -1,8 +1,7 @@
 // See https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/dispmprt/nc-dispmprt-dxgkddi_stop_device
 #include "Common.h"
+#include "miniport/StopDevice.hpp"
 #include "HyDevice.hpp"
-#include "StopDevice.hpp"
-#include "Logging.h"
 
 #pragma code_seg("PAGE")
 

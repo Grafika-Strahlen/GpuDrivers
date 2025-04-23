@@ -4,7 +4,7 @@
 
 #define HY_BUILD_AS_KMDOD 1
 #include "Common.h"
-#include "DevThunks.hpp"
+#include "miniport/DevThunks.hpp"
 
 #pragma code_seg("PAGE")
 

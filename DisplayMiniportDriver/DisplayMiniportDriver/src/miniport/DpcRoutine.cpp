@@ -1,8 +1,7 @@
 // See https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/dispmprt/nc-dispmprt-dxgkddi_dpc_routine
 #include "Common.h"
+#include "miniport/DpcRoutine.hpp"
 #include "HyDevice.hpp"
-#include "DpcRoutine.hpp"
-#include "Logging.h"
 
 #pragma code_seg("_KTEXT")
 
