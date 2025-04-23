@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -292,6 +292,7 @@
     <ClCompile Include="src\d3d10\device\DestroyDevice10.cpp" />
     <ClCompile Include="src\d3d10\device\DynamicResourceMapDiscard10.cpp" />
     <ClCompile Include="src\d3d10\device\DynamicResourceUnmap.cpp" />
+    <ClCompile Include="src\d3d10\device\Flush10.cpp" />
     <ClCompile Include="src\d3d10\device\SetBlendState10.cpp" />
     <ClCompile Include="src\d3d10\device\SetDepthStencilState10.cpp" />
     <ClCompile Include="src\d3d10\GsAdapter10.cpp" />
@@ -332,6 +333,7 @@
     <ClInclude Include="include\d3d10\device\DestroyDevice10.hpp" />
     <ClInclude Include="include\d3d10\device\DynamicResourceMapDiscard10.hpp" />
     <ClInclude Include="include\d3d10\device\DynamicResourceUnmap.hpp" />
+    <ClInclude Include="include\d3d10\device\Flush10.hpp" />
     <ClInclude Include="include\d3d10\device\SetBlendState10.hpp" />
     <ClInclude Include="include\d3d10\device\SetDepthStencilState10.hpp" />
     <ClInclude Include="include\d3d10\GsAdapter10.hpp" />

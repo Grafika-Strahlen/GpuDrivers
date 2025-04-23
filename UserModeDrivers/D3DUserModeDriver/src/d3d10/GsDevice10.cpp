@@ -6,22 +6,27 @@
 #include "dxgi/DxgiEnumDebug.hpp"
 #include "CreateAllocationDriverData.hpp"
 #include "Logging.hpp"
+#include <mutex>
 
 GsDevice10::GsDevice10(
     const D3D10DDI_HRTDEVICE runtimeHandle,
     const D3DDDI_DEVICECALLBACKS& deviceCallbacks,
     const D3D10DDI_HRTCORELAYER runtimeCoreLayerHandle,
-    const D3D10DDI_CORELAYER_DEVICECALLBACKS& umCallbacks
+    const D3D10DDI_CORELAYER_DEVICECALLBACKS& umCallbacks,
+    const DXGI_DDI_BASE_CALLBACKS& dxgiCallbacks
 ) noexcept
     : m_RuntimeHandle(runtimeHandle)
     , m_DeviceCallbacks(deviceCallbacks)
     , m_RuntimeCoreLayerHandle(runtimeCoreLayerHandle)
     , m_UmCallbacks(umCallbacks)
+    , m_DxgiCallbacks(dxgiCallbacks)
     , m_BlendState(nullptr)
     , m_BlendFactor { }
     , m_SampleMask(0)
     , m_DepthStencilState(nullptr)
     , m_StencilRef(0)
+    , m_RenderCbSequenceLock{}
+    , m_RenderCbSequence(1)
 { }
 
 void GsDevice10::DynamicResourceMapDiscard(
@@ -181,6 +186,15 @@ void GsDevice10::SetDepthStencilState(
     m_StencilRef = StencilRef;
 }
 
+void GsDevice10::Flush() noexcept
+{
+    TRACE_ENTRYPOINT();
+
+    m_DeviceContext.RecordManualSubmit();
+
+    SubmitCommandBuffer();
+}
+
 SIZE_T GsDevice10::CalcPrivateResourceSize(
     const D3D10DDIARG_CREATERESOURCE* const pCreateResource
 ) const noexcept
@@ -231,10 +245,22 @@ void GsDevice10::CreateResource(
     }
 
     UINT pixelSize = 4;
+    D3DDDIFORMAT format = D3DDDIFMT_UNKNOWN;
 
-    if(pCreateResource->Format == DXGI_FORMAT_R8G8B8A8_UNORM)
+    switch(pCreateResource->Format)
     {
-        pixelSize = 4;
+        case DXGI_FORMAT_R8G8B8A8_UNORM:
+            pixelSize = 4;
+            format = D3DDDIFMT_A8R8G8B8;
+            break;
+        case DXGI_FORMAT_D24_UNORM_S8_UINT:
+            pixelSize = 4;
+            format = D3DDDIFMT_D24S8;
+            break;
+        default:
+            LOG_ERROR("Unsupported format: {}", DxgiFormatToString(pCreateResource->Format));
+            m_UmCallbacks.pfnSetErrorCb(m_RuntimeCoreLayerHandle, E_INVALIDARG);
+            return;
     }
 
     UINT64 physicalSize = 0;
@@ -279,18 +305,7 @@ void GsDevice10::CreateResource(
         allocationInfo.V1.Flags.IndexBuffer = false;
     }
     allocationInfo.V1.Flags.Reserved = 0;
-    allocationInfo.V1.Format = D3DDDIFMT_UNKNOWN;
-
-    switch(pCreateResource->Format)
-    {
-        case DXGI_FORMAT_R8G8B8A8_UNORM:
-            allocationInfo.V1.Format = D3DDDIFMT_A8R8G8B8;
-            break;
-        default:
-            LOG_ERROR("Unsupported format: {}", DxgiFormatToString(pCreateResource->Format));
-            m_UmCallbacks.pfnSetErrorCb(m_RuntimeCoreLayerHandle, E_INVALIDARG);
-            return;
-    }
+    allocationInfo.V1.Format = format;
 
     if(pCreateResource->pMipInfoList && pCreateResource->MipLevels > 0)
     {
@@ -694,4 +709,203 @@ void GsDevice10::CheckMultisampleQualityLevels(
     // We're just going to ignore multisampling for now.
     // TODO: Add multisampling support to texture formats.
     *pNumQualityLevels = 0;
+}
+
+UINT GsDevice10::GetRenderCbSequence() noexcept
+{
+    //   The max value for RenderCBSequence is 0x80000001, we need one over
+    // that for the specific operation we're performing.
+    // https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/d3dumddi/ns-d3dumddi-_d3dddicb_render
+    UINT maxSequence = 0x80000001U + 1U;
+
+    //   We're going to use a spin lock here to ensure that we never exceed
+    // the max sequence value.
+    //   This could be a mutex, but it is faster to use a spin lock here.
+    // While you take a hit when spinning, we're only performing two heavy
+    // instructions in here.
+    //   After the exchange there is a test and jump which will be merged
+    // together by the instruction decoder, followed up by 2 constant move
+    // into registers, which will be done by the instruction decoder. Then
+    // the actual atomic instructions will run, followed up by a move into
+    // the spin lock, allowing other threads to run.
+    //
+    //   On Linux with Clang the following assembly is generated for this
+    // function:
+    //
+    // GetRenderCbSequence():                                               ; The function.
+    // .LBB0_1:                                                             ; The lock loop for SpinLock::Lock.
+    //     mov     al, 1                                                    ; Prepare to exchange true into the spin lock.
+    //     xchg    byte ptr[rip + m_RenderCbSequenceLock], al               ; Attempt to exchange the spin lock.
+    //     test    al, al                                                   ; Check to see if the exchange was successful.
+    //     jne.LBB0_1                                                       ; If the exchange was not successful, loop back to try again.
+    //     mov     ecx, 1                                                   ; The initial value for the sequence to load if the cmpxchg confirms we've reached the max value.
+    //     mov     eax, -2147483646                                         ; The max value to check for (0x80000001U + 1U).
+    //     lock            cmpxchg dword ptr[rip + m_RenderCbSequence], ecx ; Perform compare_exchange_strong
+    //     lock            xadd    dword ptr[rip + m_RenderCbSequence], ecx ; Perform fetch_add
+    //     mov     byte ptr[rip + m_RenderCbSequenceLock], 0                ; Unlock the spin lock.
+    //     mov     eax, ecx                                                 ; Return the value that was in the sequence before the increment.
+    //     ret                                                              ; Return.
+    // 
+    // m_RenderCbSequence:                                                  ; This test function used a global variable, rather than a member variable.
+    //     .long   1
+    const ::std::lock_guard lock(m_RenderCbSequenceLock);
+
+    //   If the current sequence value is equal to the maximum then set it
+    // back to 1.
+    //   This needs to be sequentially consistent ordering to ensure this
+    // doesn't happen after the increment.
+    //
+    //   If we perform this without the spin lock we can run into an issue
+    // where a value greater than the max sequence is used. This is doubly
+    // problematic, since C++ doesn't appear to provide a function for
+    // comparing with greater-than-or-equal-to, which would cause all
+    // future values to exceed the max value, until the register overflows.
+    //
+    //   As an example with the increment happening before the comparison,
+    // with an initial value of 1, and a max value of 2:
+    //
+    //     Thread A             Thread B
+    // ret = 1, seq = 2
+    // seq = seq
+    // ----------------
+    //
+    // ret = 2, seq = 3
+    //                      ret = 3, seq = 4
+    //                      seq = seq
+    //                      ----------------
+    // seq = seq
+    // ----------------
+    //
+    //   Here we se that Thread B receives an invalid value (3), and that
+    // because of that, the sequence is never reset.
+    //
+    // Same thing happens when ordering the comparison before the increment:
+    //
+    //     Thread A             Thread B
+    // seq = seq
+    // ret = 1, seq = 2
+    // ----------------
+    //
+    // seq = seq
+    // ret = 2, seq = 3
+    // ----------------
+    //                      seq = 1
+    //                      ret = 1, seq = 2
+    //                      ----------------
+    // seq = seq
+    //                      seq = seq
+    //                      ret = 2, seq = 3
+    //                      ----------------
+    // ret = 3, seq = 4
+    // ----------------
+    (void) m_RenderCbSequence.compare_exchange_strong(
+        maxSequence,              // expected
+        1,                           // desired
+        ::std::memory_order_relaxed  // order
+    );
+
+    //   We don't actually care about the value that was in the atomic
+    // sequence, since we're just going to get its value atomically from
+    // the increment RMW operation.
+    (void) maxSequence;
+
+    // Increments the sequence number and returns the previous value.
+    return m_RenderCbSequence.fetch_add(
+        1,                          // operand
+        ::std::memory_order_relaxed // order
+    );
+}
+
+void GsDevice10::SubmitCommandBuffer() noexcept
+{
+    D3DDDICB_RENDER render {};
+    render.CommandLength = 0;
+    render.CommandOffset = 0;
+    render.NumAllocations = 0;
+    render.NumPatchLocations = 0;
+    render.pNewCommandBuffer = nullptr;
+    render.NewCommandBufferSize = 0;
+    render.pNewAllocationList = nullptr;
+    render.NewAllocationListSize = 0;
+    render.pNewPatchLocationList = nullptr;
+    render.NewPatchLocationListSize = 0;
+    render.Flags.Value = 0;
+    render.Flags.ResizeCommandBuffer = false;
+    render.Flags.ResizeAllocationList = false;
+    render.Flags.ResizePatchLocationList = false;
+    render.Flags.NullRendering = false;
+    render.Flags.Reserved = 0;
+    render.hContext = nullptr;
+    render.BroadcastContextCount = 0;
+    for(UINT i = 0; i < ::std::size(render.BroadcastContext); ++i)
+    {
+        render.BroadcastContext[i] = nullptr;
+    }
+    render.QueuedBufferCount = 0;
+#if (D3D_UMD_INTERFACE_VERSION >= D3D_UMD_INTERFACE_VERSION_WIN7)
+    render.NewCommandBuffer = 0;
+    render.pPrivateDriverData = nullptr;
+    render.PrivateDriverDataSize = 0;
+#endif
+#if (D3D_UMD_INTERFACE_VERSION >= D3D_UMD_INTERFACE_VERSION_WDDM1_3)
+    render.MarkerLogType = D3DDDIMLT_NONE;
+    render.RenderCBSequence = GetRenderCbSequence();
+    render.FirstAPISequenceNumberHigh = 0;
+    render.CompletedAPISequenceNumberLow0Size = 0;
+    render.CompletedAPISequenceNumberLow1Size = 0;
+    render.BegunAPISequenceNumberLow0Size = 0;
+    render.BegunAPISequenceNumberLow1Size = 0;
+    render.pCompletedAPISequenceNumberLow0 = nullptr;
+    render.pCompletedAPISequenceNumberLow1 = nullptr;
+    render.pBegunAPISequenceNumberLow0 = nullptr;
+    render.pBegunAPISequenceNumberLow1 = nullptr;
+#endif
+
+    if(m_DeviceContext.ShouldUpdateCommandBufferSize())
+    {
+        render.Flags.ResizeCommandBuffer = true;
+        // Multiply size by 1.5.
+        render.NewCommandBufferSize = m_DeviceContext.CommandBufferSize() + (m_DeviceContext.CommandBufferSize() >> 1);
+    }
+
+    if(m_DeviceContext.ShouldUpdateAllocationListSize())
+    {
+        render.Flags.ResizeAllocationList = true;
+        // Multiply size by 1.5.
+        render.NewAllocationListSize = m_DeviceContext.AllocationListSize() + (m_DeviceContext.AllocationListSize() >> 1);
+    }
+
+    if(m_DeviceContext.ShouldUpdatePatchListSize())
+    {
+        render.Flags.ResizePatchLocationList = true;
+        // Multiply size by 1.5.
+        render.NewPatchLocationListSize = m_DeviceContext.PatchLocationListSize() + (m_DeviceContext.PatchLocationListSize() >> 1);
+    }
+
+    const HRESULT status = m_DeviceCallbacks.pfnRenderCb(m_RuntimeHandle.handle, &render);
+
+    if(!SUCCEEDED(status))
+    {
+        LOG_ERROR("Failed to render: 0x{XP0}", status);
+        m_UmCallbacks.pfnSetErrorCb(m_RuntimeCoreLayerHandle, status);
+        return;
+    }
+
+    if(render.pNewCommandBuffer || render.NewCommandBufferSize)
+    {
+        m_DeviceContext.CommandBuffer() = render.pNewCommandBuffer;
+        m_DeviceContext.CommandBufferSize() = render.NewCommandBufferSize;
+    }
+
+    if(render.pNewAllocationList || render.NewAllocationListSize)
+    {
+        m_DeviceContext.AllocationList() = render.pNewAllocationList;
+        m_DeviceContext.AllocationListSize() = render.NewAllocationListSize;
+    }
+
+    if(render.pNewPatchLocationList || render.NewPatchLocationListSize)
+    {
+        m_DeviceContext.PatchLocationList() = render.pNewPatchLocationList;
+        m_DeviceContext.PatchLocationListSize() = render.NewPatchLocationListSize;
+    }
 }

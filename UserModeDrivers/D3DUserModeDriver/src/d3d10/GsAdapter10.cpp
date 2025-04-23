@@ -12,6 +12,8 @@
 #include "d3d10/device/SetBlendState10.hpp"
 #include "d3d10/device/SetDepthStencilState10.hpp"
 
+#include "d3d10/device/Flush10.hpp"
+
 #include "d3d10/device/CalcPrivateResourceSize10.hpp"
 
 #include "d3d10/device/CreateResource10.hpp"
@@ -86,6 +88,20 @@ SIZE_T GsAdapter10::CalcPrivateDeviceSize(const D3D10DDIARG_CALCPRIVATEDEVICESIZ
         (PTR) = reinterpret_cast<decltype(PTR)>(fun); \
     }
 
+#define GEN_NOOP_HRESULT(PTR) \
+    { \
+        using fun_t = HRESULT(*)(); \
+        fun_t fun = []() -> HRESULT \
+        { \
+            if(g_DebugEnable) \
+            { \
+                ConPrinter::PrintLn("{}", #PTR); \
+            } \
+            return S_OK; \
+        }; \
+        (PTR) = reinterpret_cast<decltype(PTR)>(fun); \
+    }
+
 HRESULT GsAdapter10::CreateDevice(D3D10DDIARG_CREATEDEVICE& createDevice) noexcept
 {
     TRACE_ENTRYPOINT();
@@ -129,7 +145,8 @@ HRESULT GsAdapter10::CreateDevice(D3D10DDIARG_CREATEDEVICE& createDevice) noexce
             createDevice.hRTDevice,     // driverHandle
             *createDevice.pKTCallbacks, // deviceCallbacks
             createDevice.hRTCoreLayer,  // runtimeCoreLayerHandle
-            *createDevice.pUMCallbacks  // umCallbacks
+            *createDevice.pUMCallbacks, // umCallbacks
+            *createDevice.DXGIBaseDDI.pDXGIBaseCallbacks // dxgiCallbacks
         );
 
         createDevice.hDrvDevice.pDrvPrivate = device;
@@ -140,7 +157,8 @@ HRESULT GsAdapter10::CreateDevice(D3D10DDIARG_CREATEDEVICE& createDevice) noexce
             createDevice.hRTDevice,     // driverHandle
             *createDevice.pKTCallbacks, // deviceCallbacks
             createDevice.hRTCoreLayer,  // runtimeCoreLayerHandle
-            *createDevice.pUMCallbacks  // umCallbacks
+            *createDevice.pUMCallbacks, // umCallbacks
+            *createDevice.DXGIBaseDDI.pDXGIBaseCallbacks // dxgiCallbacks
         );
     }
 
@@ -169,8 +187,6 @@ HRESULT GsAdapter10::CreateDevice(D3D10DDIARG_CREATEDEVICE& createDevice) noexce
     // !!! BEGIN MIDDLE-FREQUENCY !!!
     GEN_NOOP_VOID(createDevice.pDeviceFuncs->pfnDrawIndexedInstanced);
     GEN_NOOP_VOID(createDevice.pDeviceFuncs->pfnDrawInstanced);
-    // GEN_NOOP_VOID(createDevice.pDeviceFuncs->pfnDynamicResourceMapDiscard);
-    // GEN_NOOP_VOID(createDevice.pDeviceFuncs->pfnDynamicResourceUnmap);
     createDevice.pDeviceFuncs->pfnDynamicResourceMapDiscard = GsDynamicResourceMapDiscard10;
     createDevice.pDeviceFuncs->pfnDynamicResourceUnmap = GsDynamicResourceUnmap;
     GEN_NOOP_VOID(createDevice.pDeviceFuncs->pfnGsSetConstantBuffers);
@@ -200,7 +216,8 @@ HRESULT GsAdapter10::CreateDevice(D3D10DDIARG_CREATEDEVICE& createDevice) noexce
     GEN_NOOP_VOID(createDevice.pDeviceFuncs->pfnClearDepthStencilView);
     GEN_NOOP_VOID(createDevice.pDeviceFuncs->pfnSetPredication);
     GEN_NOOP_VOID(createDevice.pDeviceFuncs->pfnQueryGetData);
-    GEN_NOOP_VOID(createDevice.pDeviceFuncs->pfnFlush);
+    // GEN_NOOP_VOID(createDevice.pDeviceFuncs->pfnFlush);
+    createDevice.pDeviceFuncs->pfnFlush = GsFlush10;
     GEN_NOOP_VOID(createDevice.pDeviceFuncs->pfnGenMips);
     GEN_NOOP_VOID(createDevice.pDeviceFuncs->pfnResourceCopy);
     GEN_NOOP_VOID(createDevice.pDeviceFuncs->pfnResourceResolveSubresource);
@@ -258,6 +275,16 @@ HRESULT GsAdapter10::CreateDevice(D3D10DDIARG_CREATEDEVICE& createDevice) noexce
 
     createDevice.pDeviceFuncs->pfnDestroyDevice = GsDestroyDevice10;
     GEN_NOOP_VOID(createDevice.pDeviceFuncs->pfnSetTextFilterSize);
+
+
+    // DXGI Functions
+    GEN_NOOP_HRESULT(createDevice.DXGIBaseDDI.pDXGIDDIBaseFunctions->pfnPresent);
+    GEN_NOOP_HRESULT(createDevice.DXGIBaseDDI.pDXGIDDIBaseFunctions->pfnGetGammaCaps);
+    GEN_NOOP_HRESULT(createDevice.DXGIBaseDDI.pDXGIDDIBaseFunctions->pfnSetDisplayMode);
+    GEN_NOOP_HRESULT(createDevice.DXGIBaseDDI.pDXGIDDIBaseFunctions->pfnSetResourcePriority);
+    GEN_NOOP_HRESULT(createDevice.DXGIBaseDDI.pDXGIDDIBaseFunctions->pfnQueryResourceResidency);
+    GEN_NOOP_HRESULT(createDevice.DXGIBaseDDI.pDXGIDDIBaseFunctions->pfnRotateResourceIdentities);
+    GEN_NOOP_HRESULT(createDevice.DXGIBaseDDI.pDXGIDDIBaseFunctions->pfnBlt);
 
     return S_OK;
 }

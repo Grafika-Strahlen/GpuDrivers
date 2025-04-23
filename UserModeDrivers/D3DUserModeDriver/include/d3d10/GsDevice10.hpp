@@ -1,7 +1,10 @@
 #pragma once
 
 #include "Common.hpp"
+#include "d3d10/GsDeviceContext10.hpp"
 #include <Objects.hpp>
+#include <atomic>
+#include "SpinLock.hpp"
 
 class GsBlendState10;
 class GsDepthStencilState10;
@@ -20,7 +23,8 @@ public:
         const D3D10DDI_HRTDEVICE runtimeHandle,
         const D3DDDI_DEVICECALLBACKS& deviceCallbacks,
         const D3D10DDI_HRTCORELAYER runtimeCoreLayerHandle,
-        const D3D10DDI_CORELAYER_DEVICECALLBACKS& umCallbacks
+        const D3D10DDI_CORELAYER_DEVICECALLBACKS& umCallbacks,
+        const DXGI_DDI_BASE_CALLBACKS& dxgiCallbacks
     ) noexcept;
 
     void DynamicResourceMapDiscard(
@@ -46,6 +50,8 @@ public:
         const D3D10DDI_HDEPTHSTENCILSTATE hDepthStencilState,
         const UINT StencilRef
     ) noexcept;
+
+    void Flush() noexcept;
 
     SIZE_T CalcPrivateResourceSize(
         const D3D10DDIARG_CREATERESOURCE* const pCreateResource
@@ -96,10 +102,15 @@ public:
         UINT* const pNumQualityLevels
     ) noexcept;
 private:
+    UINT GetRenderCbSequence() noexcept;
+
+    void SubmitCommandBuffer() noexcept;
+private:
     D3D10DDI_HRTDEVICE m_RuntimeHandle;
     const D3DDDI_DEVICECALLBACKS m_DeviceCallbacks;
     D3D10DDI_HRTCORELAYER m_RuntimeCoreLayerHandle;
     const D3D10DDI_CORELAYER_DEVICECALLBACKS m_UmCallbacks;
+    const DXGI_DDI_BASE_CALLBACKS m_DxgiCallbacks;
 
     GsBlendState10* m_BlendState;
     float m_BlendFactor[4];
@@ -109,4 +120,7 @@ private:
     UINT m_StencilRef;
 
     GsDeviceContext10 m_DeviceContext;
+
+    gs::SpinLock m_RenderCbSequenceLock;
+    ::std::atomic<UINT> m_RenderCbSequence;
 };
