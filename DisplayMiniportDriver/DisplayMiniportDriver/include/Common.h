@@ -10,6 +10,8 @@ extern "C" {
 
 #include "Logging.h"
 
+#include "MemoryAllocator.h"
+
 #if ENFORCE_VAGUE_STATUSES
   #define VAGUE_STATUS(REAL_STATUS, SPEC_STATUS) SPEC_STATUS
 #else

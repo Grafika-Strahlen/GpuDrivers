@@ -1,28 +1,6 @@
 // See https://docs.microsoft.com/en-us/windows-hardware/drivers/display/driverentry-of-display-miniport-driver
 #include "Common.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#include <process.h>
-
-#ifdef __cplusplus
-} /* extern "C" */
-#endif
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#include "Logging.h"
-
-#ifdef __cplusplus
-} /* extern "C" */
-#endif
-
-#include "DeviceComms.hpp"
-
 #include "AddDevice.hpp"
 #include "StartDevice.hpp"
 #include "StopDevice.hpp"
@@ -95,7 +73,7 @@ BOOLEAN DdiNoOpBool()  // NOLINT(clang-diagnostic-strict-prototypes)
     return TRUE;
 }
 
-static void HyUnload(void)
+void GsUnload()
 {
     CHECK_IRQL(PASSIVE_LEVEL);
 
@@ -106,25 +84,9 @@ static void HyUnload(void)
 
 #pragma code_seg(push)
 #pragma code_seg("INIT")
-#ifdef __cplusplus
-extern "C" {
-#endif
-DRIVER_INITIALIZE DriverEntry;
-#ifdef __cplusplus
-} /* extern "C" */
-#endif
-
-_Use_decl_annotations_ NTSTATUS DriverEntryReal(IN PDRIVER_OBJECT DriverObject, IN PUNICODE_STRING RegistryPath)
+_Use_decl_annotations_ NTSTATUS DriverEntryFull3D(IN PDRIVER_OBJECT DriverObject, IN PUNICODE_STRING RegistryPath)
 {
     PAGED_CODE();
-
-    //
-    // Opt-in to using non-executable pool memory on Windows 8 and later.
-    // This has to be done before any allocations (which our logging functions can potentially do).
-    // https://msdn.microsoft.com/en-us/library/windows/hardware/hh920402(v=vs.85).aspx
-    //
-    ExInitializeDriverRuntime(DrvRtPoolNxOptIn);
-
     CHECK_IRQL(PASSIVE_LEVEL);
 
     LOG_DEBUG("DriverEntryReal - " __TIMESTAMP__ ", WDDM Version: 0x%04X\n", DXGKDDI_INTERFACE_VERSION);
@@ -133,7 +95,7 @@ _Use_decl_annotations_ NTSTATUS DriverEntryReal(IN PDRIVER_OBJECT DriverObject, 
     // This should probably never happen.
     if(!ARGUMENT_PRESENT(DriverObject))
     {
-        LOG_ERROR("Invalid Parameter to DriverEntry: DriverObject\n");
+        LOG_ERROR("Invalid Parameter to DriverEntryFull3D: DriverObject\n");
         return STATUS_INVALID_PARAMETER_1;
     }
 
@@ -141,17 +103,8 @@ _Use_decl_annotations_ NTSTATUS DriverEntryReal(IN PDRIVER_OBJECT DriverObject, 
     // This should probably never happen.
     if(!ARGUMENT_PRESENT(RegistryPath))
     {
-        LOG_ERROR("Invalid Parameter to DriverEntry: RegistryPath\n");
+        LOG_ERROR("Invalid Parameter to DriverEntryFull3D: RegistryPath\n");
         return STATUS_INVALID_PARAMETER_2;
-    }
-
-    {
-        // Initialize the emulation comms if necessary.
-        const NTSTATUS deviceCommsStatus = InitDeviceComms(DriverObject);
-        if(!NT_SUCCESS(deviceCommsStatus))
-        {
-            return deviceCommsStatus;
-        }
     }
 
 #if HY_BUILD_AS_KMDOD
@@ -175,7 +128,7 @@ _Use_decl_annotations_ NTSTATUS DriverEntryReal(IN PDRIVER_OBJECT DriverObject, 
     driverInitializationData.DxgkDdiSetPowerState = HySetPowerState;
     driverInitializationData.DxgkDdiNotifyAcpiEvent = HyNotifyAcpiEvent;
     driverInitializationData.DxgkDdiResetDevice = HyResetDevice;
-    driverInitializationData.DxgkDdiUnload = HyUnload;
+    driverInitializationData.DxgkDdiUnload = GsUnload;
     driverInitializationData.DxgkDdiQueryInterface = HyQueryInterface;
     driverInitializationData.DxgkDdiControlEtwLogging = HyControlEtwLogging;
     driverInitializationData.DxgkDdiQueryAdapterInfo = HyQueryAdapterInfo;
@@ -255,7 +208,7 @@ _Use_decl_annotations_ NTSTATUS DriverEntryReal(IN PDRIVER_OBJECT DriverObject, 
     driverInitializationData.DxgkDdiSetPowerState = HySetPowerState;
     driverInitializationData.DxgkDdiNotifyAcpiEvent = HyNotifyAcpiEvent;
     driverInitializationData.DxgkDdiResetDevice = HyResetDevice;
-    driverInitializationData.DxgkDdiUnload = HyUnload;
+    driverInitializationData.DxgkDdiUnload = GsUnload;
     driverInitializationData.DxgkDdiQueryInterface = HyQueryInterface;
     driverInitializationData.DxgkDdiControlEtwLogging = HyControlEtwLogging;
 
@@ -322,20 +275,6 @@ _Use_decl_annotations_ NTSTATUS DriverEntryReal(IN PDRIVER_OBJECT DriverObject, 
     return DxgkInitialize(DriverObject, RegistryPath, &driverInitializationData);
 #endif
 }
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-_Use_decl_annotations_ NTSTATUS DriverEntry(IN PDRIVER_OBJECT DriverObject, IN PUNICODE_STRING RegistryPath)
-{
-    __security_init_cookie();
-    return DriverEntryReal(DriverObject, RegistryPath);
-}
-
-#ifdef __cplusplus
-} /* extern "C" */
-#endif
 
 #pragma code_seg(pop)
 

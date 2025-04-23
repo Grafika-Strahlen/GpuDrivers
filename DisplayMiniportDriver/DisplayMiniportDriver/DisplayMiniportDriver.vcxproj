@@ -506,8 +506,10 @@ xcopy /y $(SolutionDir)..\UserModeDrivers\bin\x64\$(Configuration)\D3DUserModeDr
     <ClCompile Include="src\Devices.cpp" />
     <ClCompile Include="src\DevThunks.cpp" />
     <ClCompile Include="src\DispatchIoRequest.cpp" />
+    <ClCompile Include="src\DisplayOnlyDriver.cpp" />
     <ClCompile Include="src\DpcRoutine.cpp" />
-    <ClCompile Include="src\Driver.cpp" />
+    <ClCompile Include="src\DriverEntry.cpp" />
+    <ClCompile Include="src\Full3DDriver.cpp" />
     <ClCompile Include="src\EnumVidPnCofuncModality.cpp" />
     <ClCompile Include="src\FilterConnectNotify.c" />
     <ClCompile Include="src\FilterDeviceManager.c" />
@@ -541,6 +543,7 @@ xcopy /y $(SolutionDir)..\UserModeDrivers\bin\x64\$(Configuration)\D3DUserModeDr
     <ClCompile Include="src\RegisterMemCopy.c" />
     <ClCompile Include="src\RemoveDevice.cpp" />
     <ClCompile Include="src\ResetDevice.cpp" />
+    <ClCompile Include="src\ResilientDisplayOnlyDriver.cpp" />
     <ClCompile Include="src\SetPowerState.cpp" />
     <ClCompile Include="src\SetVidPnSourceAddress.cpp" />
     <ClCompile Include="src\SetVidPnSourceVisibility.cpp" />

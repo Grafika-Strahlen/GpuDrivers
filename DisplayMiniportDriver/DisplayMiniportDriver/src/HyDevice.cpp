@@ -574,6 +574,11 @@ BOOLEAN HyMiniportDevice::InterruptRoutine(IN_ULONG MessageNumber) noexcept
 
     CHECK_IRQL(HIGH_LEVEL); // HIGH_LEVEL is the best approximation of DIRQL
 
+    if(!m_Flags.IsStarted)
+    {
+        return TRUE;
+    }
+
     volatile UINT* const pMessageType = GetDeviceConfigRegister(REGISTER_INTERRUPT_TYPE);
 
     const UINT messageType = *pMessageType;
@@ -624,6 +629,11 @@ BOOLEAN HyMiniportDevice::InterruptRoutine(IN_ULONG MessageNumber) noexcept
 void HyMiniportDevice::DpcRoutine() noexcept
 {
     CHECK_IRQL(DISPATCH_LEVEL);
+
+    if(!m_Flags.IsStarted)
+    {
+        return;
+    }
 
     m_DxgkInterface.DxgkCbNotifyDpc(m_DxgkInterface.DeviceHandle);
 }

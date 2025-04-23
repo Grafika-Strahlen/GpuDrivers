@@ -24,7 +24,7 @@
     </Inf>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Driver.cpp">
+    <ClCompile Include="src\Full3DDriver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\AddDevice.cpp">
@@ -199,6 +199,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\DestroyAllocation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DisplayOnlyDriver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ResilientDisplayOnlyDriver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DriverEntry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

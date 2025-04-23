@@ -104,7 +104,7 @@ public:
     static inline constexpr UINT32 MSG_INTERRUPT_VSYNC_DISPLAY_0   = 0x00000010; // 0x10 - 0x18
 
     static inline constexpr UINT32 BASE_REGISTER_DI                = 0x2000;
-    static inline constexpr UINT32 SIZE_REGISTER_DI                = 6 * 0x4;
+    static inline constexpr UINT32 SIZE_REGISTER_DI                = 9 * 0x4;
     static inline constexpr UINT32 OFFSET_REGISTER_DI_WIDTH        = 0x00;
     static inline constexpr UINT32 OFFSET_REGISTER_DI_HEIGHT       = 0x04;
     static inline constexpr UINT32 OFFSET_REGISTER_DI_BPP          = 0x08;
@@ -112,6 +112,8 @@ public:
     static inline constexpr UINT32 OFFSET_REGISTER_DI_REFRESH_RATE_NUMERATOR   = 0x10;
     static inline constexpr UINT32 OFFSET_REGISTER_DI_REFRESH_RATE_DENOMINATOR = 0x14;
     static inline constexpr UINT32 OFFSET_REGISTER_DI_VSYNC_ENABLE = 0x18;
+    static inline constexpr UINT32 OFFSET_REGISTER_DI_FB_LOW       = 0x1C;
+    static inline constexpr UINT32 OFFSET_REGISTER_DI_FB_HIGH      = 0x20;
 
     static inline constexpr UINT32 BASE_REGISTER_EDID              = 0x3000;
     static inline constexpr UINT32 SIZE_REGISTER_EDID              = 128;

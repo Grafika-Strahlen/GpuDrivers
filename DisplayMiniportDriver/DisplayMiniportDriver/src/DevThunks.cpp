@@ -1,5 +1,10 @@
+#ifdef HY_BUILD_AS_KMDOD
+  #undef HY_BUILD_AS_KMDOD
+#endif
+
+#define HY_BUILD_AS_KMDOD 1
 #include "Common.h"
-#include <DevThunks.hpp>
+#include "DevThunks.hpp"
 
 #pragma code_seg("PAGE")
 

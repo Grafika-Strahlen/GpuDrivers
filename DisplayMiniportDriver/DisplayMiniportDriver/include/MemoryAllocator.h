@@ -7,6 +7,7 @@ extern "C" {
 
 #include <wdm.h>
 
+#define POOL_TAG_KERNEL_DRIVER    ('DKSG')
 #define POOL_TAG_DEVICE_CONTEXT   ('CDSG')
 #define POOL_TAG_LOGGING          ('gLSG')
 #define POOL_TAG_PRESENT          ('rPSG')
