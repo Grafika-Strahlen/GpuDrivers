@@ -165,8 +165,8 @@ static HWND StartWindow(const int width, const int height) noexcept
         WS_OVERLAPPEDWINDOW,
         CW_USEDEFAULT,
         CW_USEDEFAULT,
-        800,
-        600,
+        width,
+        height,
         nullptr,
         nullptr,
         windowClass.hInstance,
@@ -325,7 +325,7 @@ int RunD3D10(const bool enableDebug) noexcept
     swapChainDesc.Flags = 0;
 
     CComPtr<IDXGISwapChain> swapChain;
-    // status = dxgiFactory->CreateSwapChain(device, &swapChainDesc, &swapChain);
+    status = dxgiFactory->CreateSwapChain(device, &swapChainDesc, &swapChain);
 #else
     DXGI_SWAP_CHAIN_DESC1 swapChainDesc {};
     swapChainDesc.Width = Width;
@@ -354,11 +354,11 @@ int RunD3D10(const bool enableDebug) noexcept
         return 3;
     }
 
+    CComPtr<ID3D10Texture2D> backBuffer;
     CComPtr<ID3D10RenderTargetView> backBufferRtv;
 
-    if constexpr(false)
+    if constexpr(true)
     {
-        CComPtr<ID3D10Texture2D> backBuffer;
 
         status = swapChain->GetBuffer(0, IID_ID3D10Texture2D, reinterpret_cast<void**>(&backBuffer));
 
@@ -379,12 +379,203 @@ int RunD3D10(const bool enableDebug) noexcept
 
             return 5;
         }
-
-        ID3D10RenderTargetView* renderTargets[1];
-        renderTargets[0] = backBufferRtv;
-        device->OMSetRenderTargets(1, renderTargets, nullptr);
     }
 
+    CComPtr<ID3D10Texture2D> depthStencilBuffer;
+    CComPtr<ID3D10DepthStencilView> depthStencilView;
+
+    if constexpr(true)
+    {
+        D3D10_TEXTURE2D_DESC desc {};
+        desc.Width = Width;
+        desc.Height = Height;
+        desc.MipLevels = 1;
+        desc.ArraySize = 1;
+        desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+        desc.SampleDesc.Count = 1;
+        desc.SampleDesc.Quality = 0;
+        desc.Usage = D3D10_USAGE_DEFAULT;
+        desc.BindFlags = D3D10_BIND_DEPTH_STENCIL;
+        desc.CPUAccessFlags = 0;
+        desc.MiscFlags = 0;
+
+        status = device->CreateTexture2D(
+            &desc,
+            nullptr,
+            &depthStencilBuffer
+        );
+
+        if(!SUCCEEDED(status))
+        {
+            ConPrinter::PrintLn(u8"Failed to create depth stencil buffer: 0x{XP0}", status);
+            LogHResultAndError(status);
+
+            return 6;
+        }
+
+        D3D10_DEPTH_STENCIL_VIEW_DESC viewDesc {};
+        viewDesc.Format = desc.Format;
+        viewDesc.ViewDimension = D3D10_DSV_DIMENSION_TEXTURE2D;
+        viewDesc.Texture2D.MipSlice = 0;
+
+        status = device->CreateDepthStencilView(
+            depthStencilBuffer,
+            &viewDesc,
+            &depthStencilView
+        );
+
+        if(!SUCCEEDED(status))
+        {
+            ConPrinter::PrintLn(u8"Failed to create depth stencil view: 0x{XP0}", status);
+            LogHResultAndError(status);
+
+            return 7;
+        }
+    }
+
+    if constexpr(true)
+    {
+        ID3D10RenderTargetView* renderTargets[1];
+        renderTargets[0] = backBufferRtv;
+        device->OMSetRenderTargets(1, renderTargets, depthStencilView);
+
+        D3D10_VIEWPORT viewport {};
+        viewport.TopLeftX = 0;
+        viewport.TopLeftY = 0;
+        viewport.Width = Width;
+        viewport.Height = Height;
+        viewport.MinDepth = 0.0f;
+        viewport.MaxDepth = 1.0f;
+        device->RSSetViewports(1, &viewport);
+    }
+
+    CComPtr<ID3D10DepthStencilState> depthStencilState;
+
+    if constexpr(true)
+    {
+        D3D10_DEPTH_STENCIL_DESC desc {};
+        desc.DepthEnable = true;
+        desc.DepthWriteMask = D3D10_DEPTH_WRITE_MASK_ALL;
+        desc.DepthFunc = D3D10_COMPARISON_LESS;
+
+        desc.StencilEnable = false;
+        desc.StencilReadMask = 0xFF;
+        desc.StencilWriteMask = 0xFF;
+
+        desc.FrontFace.StencilFailOp = D3D10_STENCIL_OP_KEEP;
+        desc.FrontFace.StencilDepthFailOp = D3D10_STENCIL_OP_INCR_SAT;
+        desc.FrontFace.StencilPassOp = D3D10_STENCIL_OP_KEEP;
+        desc.FrontFace.StencilFunc = D3D10_COMPARISON_ALWAYS;
+
+        desc.BackFace.StencilFailOp = D3D10_STENCIL_OP_KEEP;
+        desc.BackFace.StencilDepthFailOp = D3D10_STENCIL_OP_DECR_SAT;
+        desc.BackFace.StencilPassOp = D3D10_STENCIL_OP_KEEP;
+        desc.BackFace.StencilFunc = D3D10_COMPARISON_ALWAYS;
+
+        status = device->CreateDepthStencilState(
+            &desc, 
+            &depthStencilState
+        );
+
+        if(!SUCCEEDED(status))
+        {
+            ConPrinter::PrintLn(u8"Failed to create depth stencil state: 0x{XP0}", status);
+            LogHResultAndError(status);
+
+            return 8;
+        }
+
+        device->OMSetDepthStencilState(depthStencilState, 1);
+    }
+
+    CComPtr<ID3D10RasterizerState> rasterizerState;
+
+    if constexpr(true)
+    {
+        D3D10_RASTERIZER_DESC desc {};
+        desc.FillMode = D3D10_FILL_SOLID;
+        desc.CullMode = D3D10_CULL_BACK;
+        desc.FrontCounterClockwise = true;
+        desc.DepthBias = 0;
+        desc.DepthBiasClamp = 0.0f;
+        desc.SlopeScaledDepthBias = 0.0f;
+        desc.DepthClipEnable = true;
+        desc.ScissorEnable = true;
+        desc.MultisampleEnable = false;
+        desc.AntialiasedLineEnable = false;
+
+        status = device->CreateRasterizerState(
+            &desc,
+            &rasterizerState
+        );
+
+        if(!SUCCEEDED(status))
+        {
+            ConPrinter::PrintLn(u8"Failed to create rasterizer state: 0x{XP0}", status);
+            LogHResultAndError(status);
+
+            return 9;
+        }
+
+        device->RSSetState(rasterizerState);
+    }
+
+    CComPtr<ID3D10BlendState> blendState;
+
+    if constexpr(true)
+    {
+        D3D10_BLEND_DESC desc {};
+        desc.AlphaToCoverageEnable = false;
+        for(UINT i = 0; i < 8; ++i)
+        {
+            desc.BlendEnable[i] = false;
+        }
+        desc.SrcBlend = D3D10_BLEND_ONE;
+        desc.DestBlend = D3D10_BLEND_ZERO;
+        desc.BlendOp = D3D10_BLEND_OP_ADD;
+        desc.SrcBlendAlpha = D3D10_BLEND_ONE;
+        desc.DestBlendAlpha = D3D10_BLEND_ZERO;
+        desc.BlendOpAlpha = D3D10_BLEND_OP_ADD;
+        for(UINT i = 0; i < 8; ++i)
+        {
+            desc.RenderTargetWriteMask[i] = D3D10_COLOR_WRITE_ENABLE_ALL;
+        }
+
+        status = device->CreateBlendState(
+            &desc,
+            &blendState
+        );
+
+        if(!SUCCEEDED(status))
+        {
+            ConPrinter::PrintLn(u8"Failed to create blend state: 0x{XP0}", status);
+            LogHResultAndError(status);
+
+            return 10;
+        }
+
+        constexpr float blendFactor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
+        device->OMSetBlendState(blendState, blendFactor, 0xFFFFFFFF);
+    }
+
+    if constexpr(true)
+    {
+        constexpr float clearColor[4] = { 0.5f, 0.5f, 1.0f, 1.0f };
+        device->ClearRenderTargetView(backBufferRtv, clearColor);
+        device->ClearDepthStencilView(depthStencilView, D3D10_CLEAR_DEPTH, 1.0f, 0);
+    }
+
+    if constexpr(false)
+    {
+        ShowWindow(hWnd, SW_SHOWNOACTIVATE);
+    }
+
+    if constexpr(true)
+    {
+        swapChain->Present(0, 0);
+    }
+
+    if constexpr(false)
     {
         CComPtr<ID3D10Texture2D> testTexture;
 
