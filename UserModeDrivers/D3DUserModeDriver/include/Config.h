@@ -17,4 +17,10 @@
   #define GS_ENABLE_DEBUG_LOGGING (1 && DEBUG)
 #endif
 
+// #ifdef
+// #undef D3D_UMD_INTERFACE_VERSION
+// #endif
+//
+// #define D3D_UMD_INTERFACE_VERSION 0x10000
+
 #endif
