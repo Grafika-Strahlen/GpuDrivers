@@ -359,7 +359,7 @@
     <ClInclude Include="include\GsPresentManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\XStdDefPolyFill.h">
+    <ClInclude Include="include\polyfill\XStdDefPolyFill.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\GsMemoryManager.hpp">
@@ -423,6 +423,60 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\DriverConfig.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\StructToUInt.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\polyfill\VaDefsPolyFill.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\polyfill\VcRuntimePolyFill.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\polyfill\YValsCorePolyFill.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\polyfill\xstddef">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\polyfill\cstdio">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\polyfill\cwchar">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\polyfill\cfloat">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\polyfill\stdint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\polyfill\vadefs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\polyfill\vcruntime.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\polyfill\yvals_core.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\polyfill\cstdlib">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\polyfill\cstddef">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\polyfill\ctime">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\polyfill\cmath">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\polyfill\typeinfo">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\polyfill\yvals.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

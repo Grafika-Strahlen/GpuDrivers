@@ -7,7 +7,7 @@
   #undef DXGKDDI_INTERFACE_VERSION
 #endif
 
-#define HY_BUILD_AS_KMDOD 1
+#define GS_BUILD_AS_KMDOD 1
 #include "Common.h"
 
 #ifdef __cplusplus

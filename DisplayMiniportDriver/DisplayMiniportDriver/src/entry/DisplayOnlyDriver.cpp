@@ -7,7 +7,7 @@
 #define GS_SKIP_DOD
 #endif
 
-#define HY_BUILD_AS_KMDOD 1
+#define GS_BUILD_AS_KMDOD 1
 #include "Common.h"
 
 #include "miniport/AddDevice.hpp"
@@ -39,7 +39,7 @@
 #include "miniport/RecommendMonitorModes.hpp"
 #include "miniport/GetScanLine.hpp"
 
-#if HY_BUILD_AS_KMDOD
+#if GS_BUILD_AS_KMDOD
 #include "miniport/PresentDisplayOnly.hpp"
 #endif
 
@@ -120,7 +120,7 @@ _Use_decl_annotations_ NTSTATUS DriverEntryDisplayOnly(IN PDRIVER_OBJECT DriverO
     driverInitializationData.DxgkDdiCommitVidPn = GsCommitVidPn;
     driverInitializationData.DxgkDdiUpdateActiveVidPnPresentPath = GsUpdateActiveVidPnPresentPath;
     driverInitializationData.DxgkDdiRecommendMonitorModes = GsRecommendMonitorModes;
-#if HY_KMDOD_ENABLE_VSYNC_INTERRUPTS
+#if GS_KMDOD_ENABLE_VSYNC_INTERRUPTS
     driverInitializationData.DxgkDdiGetScanLine = GsGetScanLine;
 #else
     driverInitializationData.DxgkDdiGetScanLine = nullptr;
@@ -138,7 +138,7 @@ _Use_decl_annotations_ NTSTATUS DriverEntryDisplayOnly(IN PDRIVER_OBJECT DriverO
 
     driverInitializationData.DxgkDdiGetChildContainerId = ThunkGsGetChildContainerId;
 
-#if HY_KMDOD_ENABLE_VSYNC_INTERRUPTS
+#if GS_KMDOD_ENABLE_VSYNC_INTERRUPTS
     driverInitializationData.DxgkDdiControlInterrupt = GsControlInterrupt;
 #else
     driverInitializationData.DxgkDdiControlInterrupt = nullptr;

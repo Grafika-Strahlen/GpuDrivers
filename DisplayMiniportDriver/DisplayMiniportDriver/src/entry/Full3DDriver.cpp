@@ -33,7 +33,7 @@
 #include "miniport/RecommendMonitorModes.hpp"
 #include "miniport/GetScanLine.hpp"
 
-#if HY_BUILD_AS_KMDOD
+#if GS_BUILD_AS_KMDOD
 #include "miniport/PresentDisplayOnly.hpp"
 #endif
 
@@ -52,7 +52,7 @@
 #pragma code_seg(push)
 #pragma code_seg("PAGE")
 
-#if !HY_BUILD_AS_KMDOD
+#if !GS_BUILD_AS_KMDOD
 static void PrefillDriverInitializationData(DRIVER_INITIALIZATION_DATA& driverInitializationData) noexcept;
 #endif
 
@@ -107,7 +107,7 @@ _Use_decl_annotations_ NTSTATUS DriverEntryFull3D(IN PDRIVER_OBJECT DriverObject
         return STATUS_INVALID_PARAMETER_2;
     }
 
-#if HY_BUILD_AS_KMDOD
+#if GS_BUILD_AS_KMDOD
     // Allocate (on the stack) and zero out the list pointers required for Display Miniport Display-Only Driver.
     KMDDOD_INITIALIZATION_DATA driverInitializationData;
     (void) RtlZeroMemory(&driverInitializationData, sizeof(driverInitializationData));
@@ -292,7 +292,7 @@ _Use_decl_annotations_ NTSTATUS DriverEntryFull3D(IN PDRIVER_OBJECT DriverObject
         (PTR) = reinterpret_cast<decltype(PTR)>(fun); \
     }
 
-#if !HY_BUILD_AS_KMDOD
+#if !GS_BUILD_AS_KMDOD
 static void PrefillDriverInitializationData(DRIVER_INITIALIZATION_DATA& driverInitializationData) noexcept
 {
     // GEN_NOOP_NTSTATUS(driverInitializationData.DxgkDdiCreateDevice);

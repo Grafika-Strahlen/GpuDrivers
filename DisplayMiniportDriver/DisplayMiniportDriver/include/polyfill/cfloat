@@ -1,0 +1,27 @@
+// cfloat standard header (core)
+
+// Copyright (c) Microsoft Corporation.
+// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+
+#pragma once
+#ifndef _CFLOAT_
+#define _CFLOAT_
+#include "YValsCorePolyFill.h"
+
+#include <float.h>
+
+#define DBL_DECIMAL_DIG  17                      // # of decimal digits of rounding precision
+#define DBL_HAS_SUBNORM  1                       // type does support subnormal numbers
+#define DBL_TRUE_MIN     4.9406564584124654e-324 // min positive value
+
+
+#define FLT_DECIMAL_DIG  9                       // # of decimal digits of rounding precision
+#define FLT_HAS_SUBNORM  1                       // type does support subnormal numbers
+#define FLT_TRUE_MIN     1.401298464e-45F        // min positive value
+
+#define LDBL_HAS_SUBNORM DBL_HAS_SUBNORM         // type does support subnormal numbers
+#define LDBL_TRUE_MIN    DBL_TRUE_MIN            // min positive value
+
+#define DECIMAL_DIG      DBL_DECIMAL_DIG
+
+#endif // _CFLOAT_

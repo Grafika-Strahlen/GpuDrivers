@@ -89,6 +89,7 @@ DECL_LOG(Error, DPFLTR_ERROR_LEVEL);
   #define CHECK_IRQL(IRQL) do { } while(0)
 #endif
 
+
 #ifdef __cplusplus
 } /* extern "C" */
 #endif

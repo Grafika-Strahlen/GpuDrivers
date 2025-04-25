@@ -15,6 +15,7 @@ extern "C" {
 #include "GsLogicalDevice.hpp"
 #include "shared/CreateAllocationDriverData.hpp"
 #include "DriverConfig.hpp"
+#include "StructToUInt.hpp"
 
 #pragma code_seg(push)
 #pragma code_seg("PAGE")
@@ -384,7 +385,7 @@ NTSTATUS GsMiniportDevice::CheckDevice() noexcept
         return readDeviceSpaceStatus;
     }
 
-    if(pciHeader.VendorID != HY_VENDOR_ID)
+    if(pciHeader.VendorID != GS_VENDOR_ID)
     {
         return STATUS_GRAPHICS_DRIVER_MISMATCH;
     }
@@ -699,7 +700,7 @@ NTSTATUS GsMiniportDevice::QueryDeviceDescriptor(IN_ULONG ChildUid, INOUT_PDXGK_
         DeviceDescriptor->DescriptorLength
     );
 
-#if 0
+#if !GS_ALLOW_EDID_QUERY
     return STATUS_MONITOR_NO_DESCRIPTOR;
 #else
     // We're only going to report our single display.
@@ -1750,9 +1751,9 @@ void GsMiniportDevice::LogVidPn(D3DKMDT_HVIDPN hVidPn) noexcept
             pPresentPath->VidPnSourceId,
             pPresentPath->ImportanceOrdinal,
             pPresentPath->ContentTransformation.Scaling,
-            pPresentPath->ContentTransformation.ScalingSupport,
+            StructToUInt(pPresentPath->ContentTransformation.ScalingSupport),
             pPresentPath->ContentTransformation.Rotation,
-            pPresentPath->ContentTransformation.RotationSupport,
+            StructToUInt(pPresentPath->ContentTransformation.RotationSupport),
             pPresentPath->VisibleFromActiveTLOffset.cx,
             pPresentPath->VisibleFromActiveTLOffset.cy,
             pPresentPath->VisibleFromActiveBROffset.cx,
@@ -1765,7 +1766,7 @@ void GsMiniportDevice::LogVidPn(D3DKMDT_HVIDPN hVidPn) noexcept
             pPresentPath->Content,
             pPresentPath->CopyProtection.CopyProtectionType,
             pPresentPath->CopyProtection.APSTriggerBits,
-            pPresentPath->CopyProtection.CopyProtectionSupport,
+            StructToUInt(pPresentPath->CopyProtection.CopyProtectionSupport),
             pPresentPath->GammaRamp.Type,
             pPresentPath->GammaRamp.DataSize
         );
@@ -3626,7 +3627,7 @@ NTSTATUS GsMiniportDevice::AddSingleTargetMode(const DXGK_VIDPNTARGETMODESET_INT
     pVidPnTargetModeInfo->VideoSignalInfo.ActiveSize = pVidPnTargetModeInfo->VideoSignalInfo.TotalSize;
     pVidPnTargetModeInfo->VideoSignalInfo.TotalSize.cx = 1344;
     pVidPnTargetModeInfo->VideoSignalInfo.TotalSize.cy = 795;
-#if HY_KMDOD_ENABLE_VSYNC_INTERRUPTS
+#if GS_KMDOD_ENABLE_VSYNC_INTERRUPTS
     pVidPnTargetModeInfo->VideoSignalInfo.VSyncFreq.Numerator = 60;
     pVidPnTargetModeInfo->VideoSignalInfo.VSyncFreq.Denominator = 1;
     pVidPnTargetModeInfo->VideoSignalInfo.HSyncFreq.Numerator = 476999999;

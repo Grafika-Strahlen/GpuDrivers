@@ -169,7 +169,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <DebuggerFlavor>DbgengKernelDebugger</DebuggerFlavor>
-    <IncludePath>$(ProjectDir)include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)include\polyfill;$(ProjectDir)include;$(IncludePath)</IncludePath>
     <TimeStampServer>http://timestamp.globalsign.com/scripts/timstamp.dll</TimeStampServer>
     <TargetExt>.sys</TargetExt>
     <GenerateManifest>false</GenerateManifest>
@@ -310,7 +310,8 @@ xcopy /y $(SolutionDir)..\UserModeDrivers\bin\x64\$(Configuration)\D3DUserModeDr
       <ControlFlowGuard>false</ControlFlowGuard>
       <EnableModules>false</EnableModules>
       <SDLCheck>true</SDLCheck>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <CompileAsWinRT>false</CompileAsWinRT>
     </ClCompile>
     <Link>
       <LargeAddressAware>true</LargeAddressAware>
@@ -562,6 +563,20 @@ xcopy /y $(SolutionDir)..\UserModeDrivers\bin\x64\$(Configuration)\D3DUserModeDr
     <ClInclude Include="include\miniport\CollectDbgInfo.hpp" />
     <ClInclude Include="include\miniport\CommitVidPn.hpp" />
     <ClInclude Include="include\Common.h" />
+    <ClInclude Include="include\polyfill\cfloat" />
+    <ClInclude Include="include\polyfill\cmath" />
+    <ClInclude Include="include\polyfill\cstddef" />
+    <ClInclude Include="include\polyfill\cstdio" />
+    <ClInclude Include="include\polyfill\cstdlib" />
+    <ClInclude Include="include\polyfill\ctime" />
+    <ClInclude Include="include\polyfill\cwchar" />
+    <ClInclude Include="include\polyfill\stdint.h" />
+    <ClInclude Include="include\polyfill\typeinfo" />
+    <ClInclude Include="include\polyfill\vadefs.h" />
+    <ClInclude Include="include\polyfill\vcruntime.h" />
+    <ClInclude Include="include\polyfill\xstddef" />
+    <ClInclude Include="include\polyfill\yvals.h" />
+    <ClInclude Include="include\polyfill\yvals_core.h" />
     <ClInclude Include="include\shared\MessageType.h" />
     <ClInclude Include="include\Config.h" />
     <ClInclude Include="include\miniport\ControlEtwLogging.hpp" />
@@ -621,7 +636,11 @@ xcopy /y $(SolutionDir)..\UserModeDrivers\bin\x64\$(Configuration)\D3DUserModeDr
     <ClInclude Include="include\miniport\StopDevice.hpp" />
     <ClInclude Include="include\miniport\StopDeviceAndReleasePostDisplayOwnership.hpp" />
     <ClInclude Include="include\miniport\UpdateActiveVidPnPresentPath.hpp" />
-    <ClInclude Include="include\XStdDefPolyFill.h" />
+    <ClInclude Include="include\StructToUInt.hpp" />
+    <ClInclude Include="include\polyfill\VaDefsPolyFill.h" />
+    <ClInclude Include="include\polyfill\VcRuntimePolyFill.h" />
+    <ClInclude Include="include\polyfill\XStdDefPolyFill.h" />
+    <ClInclude Include="include\polyfill\YValsCorePolyFill.h" />
     <ClInclude Include="WddmMajorVersion.h" />
     <ClInclude Include="WddmMinorVersion.h" />
   </ItemGroup>

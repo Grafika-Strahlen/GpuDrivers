@@ -4,7 +4,7 @@
 #include "BlockTransfer.hpp"
 #include "GsDevice.hpp"
 #include "MemoryAllocator.h"
-#include "XStdDefPolyFill.h"
+// #include "XStdDefPolyFill.h"
 #include <new>
 
 void* GsPresentData::operator new(const SIZE_T count)
